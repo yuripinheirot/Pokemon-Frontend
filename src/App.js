@@ -6,6 +6,7 @@ import MainContainer from "components/MainContainer";
 
 //modules
 import Main from "modules/main/Layout";
+import Details from "modules/details/Layout";
 
 export default function App() {
 	return (
@@ -13,7 +14,8 @@ export default function App() {
 			<Header />
 			<MainContainer>
 				<Routes>
-					<Route path='/' element={<Main />} />
+					<Route path='/*' element={<Main />} />
+					<Route path='/details/*' element={<Details />} />
 				</Routes>
 			</MainContainer>
 		</BrowserRouter>
