@@ -1,9 +1,14 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-const Main = () => {
+import Main from "./container/Main";
+
+const Layout = () => {
 	return (
-		<div>Main</div>
+		<Routes>
+			<Route path="/" element={<Main />} />
+		</Routes>
 	);
 };
 
-export default Main;
+export default Layout;
