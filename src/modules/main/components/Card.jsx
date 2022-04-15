@@ -35,10 +35,10 @@ const ImgMediaCard = ({ name }) => {
 				sx={{ objectFit: "unset" }}
 			/>
 			<CardContent>
-				<Typography gutterBottom variant="h5" component="div">
+				<Typography gutterBottom variant="subtitle1" component="div">
 					{name && name.toUpperCase()}
 				</Typography>
-				<Typography variant="body2" color="text.secondary" sx={{ minHeight: 70 }}>
+				<Typography variant="subtitle2" color="text.secondary" sx={{ minHeight: 70 }}>
 					{flavorText}
 				</Typography>
 			</CardContent>

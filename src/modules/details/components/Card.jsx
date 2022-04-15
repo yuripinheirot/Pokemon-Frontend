@@ -11,8 +11,32 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const ImgMediaCard = ({ data }) => {
+const ImgMediaCard = ({ data, detailsAbilities }) => {
 	const navigate = useNavigate();
+
+	const Abilities = () => {
+		const abilities = data.abilities && data.abilities || [];
+		const sortedAbilities = abilities.sort((a, b) => {
+			if (a.ability.name > b.ability.name) return 1;
+			if (a.ability.name < b.ability.name) return -1;
+
+			return 0;
+		});
+
+		return <>
+			<Typography gutterBottom variant="h6" component="div">
+        ABILITIES:
+			</Typography>
+			{sortedAbilities.map((item, index) => {
+				const effect = detailsAbilities.find(effect => effect.name === item.ability.name);
+
+				return <Typography key={index} variant="subtitle2" component="p">
+					{item.ability.name} - {effect && effect.effectDetails.effect}
+				</Typography>;
+			})}
+		</>;
+	};
+
 
 	return (
 		<Card sx={{ display: "flex", flexDirection: "column", width: "40%", height: "80%" }}>
@@ -23,13 +47,11 @@ const ImgMediaCard = ({ data }) => {
 				image={data && data.sprites && data.sprites.front_default}
 				sx={{ objectFit: "contain" }}
 			/>
-			<CardContent sx={{height: "100%"}}>
-				<Typography gutterBottom variant="h5" component="div">
+			<CardContent sx={{ height: "100%" }}>
+				<Typography gutterBottom variant="h4" component="div">
 					{data.name && data.name.toUpperCase()}
 				</Typography>
-				<Typography variant="body2" color="text.secondary" sx={{ minHeight: 70 }}>
-					
-				</Typography>
+				<Abilities />
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
 				<Button size="Large" variant="outlined" onClick={() => navigate("/")}>BACK</Button>
@@ -42,6 +64,7 @@ const ImgMediaCard = ({ data }) => {
 ImgMediaCard.propTypes = {
 	data: PropTypes.object,
 	flavorText: PropTypes.string,
+	detailsAbilities: PropTypes.array,
 };
 
 export default ImgMediaCard;

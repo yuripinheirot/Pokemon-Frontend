@@ -10,17 +10,22 @@ const Details = () => {
 	const { id } = useParams();
 	const [data, setData] = useState({});
 	const [flavorText, setFlavorText] = useState("");
+	const [detailsAbilities, setDetailsAbilities] = useState([]);
 
 	useEffect(() => {
 		DetailsStore.getPokemonByName(id).then(setData);
 	}, []);
 
 	useEffect(() => {
-		DetailsStore.getFlavorText(data.id).then(setFlavorText);
+		data.id && DetailsStore.getFlavorText(data.id).then(setFlavorText);
+
+		data.abilities && data.abilities.forEach(ability => {
+			DetailsStore.getAbilityDetails(ability.ability.name).then(res => setDetailsAbilities([...detailsAbilities, res]));
+		});
 	}, [data]);
 
 	return <Container sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
-		<Card data={data} flavorText={flavorText} />
+		<Card data={data} flavorText={flavorText} detailsAbilities={detailsAbilities} />
 	</Container>;
 };
 
