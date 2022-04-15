@@ -1,8 +1,12 @@
 import axios from "axios";
-import { apiPokemon } from "config";
+import { apiPokemon, apiPrisma } from "config";
 
-export const httpClient = axios.create({
+export const httpPokeApi = axios.create({
 	baseURL: apiPokemon,
 });
 
-export default httpClient;
+export const httpPrisma = axios.create({
+	baseURL: apiPrisma,
+});
+
+export default { httpPokeApi, httpPrisma };

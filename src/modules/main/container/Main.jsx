@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
+import { PokedexContext } from "components/PokedexContext/ContextProvider";
 
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
 
 const Main = () => {
+	const { pokedex, fetchPokedex } = useContext(PokedexContext);
 	const [data, setData] = useState([]);
 	const [dataFiltered, setDataFiltered] = useState([]);
 
@@ -13,6 +15,8 @@ const Main = () => {
 		MainStore.getPokemonOffset().then(res => {
 			setData(res.results);
 		});
+
+		fetchPokedex();
 	}, [setData]);
 
 	useEffect(() => {
@@ -27,7 +31,7 @@ const Main = () => {
 	return (
 		<Content id="ContentMain">
 			<SearchBar handleSearch={handleSearch} />
-			<GridAvailablePokemons data={dataFiltered} />
+			<GridAvailablePokemons data={dataFiltered} pokedex={pokedex} />
 		</Content>
 	);
 };

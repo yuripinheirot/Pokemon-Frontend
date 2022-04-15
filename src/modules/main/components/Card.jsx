@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import MainStore from "../stores/main";
+import { PokedexContext } from "components/PokedexContext/ContextProvider";
 
 //material
 import Card from "@mui/material/Card";
@@ -12,9 +13,15 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const ImgMediaCard = ({ name }) => {
+	const { pokedex, addPokedex, fetchPokedex } = useContext(PokedexContext);
 	const [data, setData] = useState({});
 	const [flavorText, setFlavorText] = useState("");
 	const navigate = useNavigate();
+
+	const handleAddPokedex = (name) => {
+		addPokedex(name);
+		fetchPokedex();
+	};
 
 	useEffect(() => {
 		MainStore.getPokemonByName(name).then(setData);
@@ -24,6 +31,7 @@ const ImgMediaCard = ({ name }) => {
 		data.id && MainStore.getFlavorText(data.id).then(setFlavorText);
 	}, [data]);
 
+	const isAddedPokedex = pokedex.indexOf(item => item.pokemon === name); 
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
@@ -44,7 +52,7 @@ const ImgMediaCard = ({ name }) => {
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
 				<Button size="Large" variant="outlined" onClick={() => navigate(`/details/${data.name}`)}>DETAILS</Button>
-				<Button size="Large" variant="contained">ADD POKEDEX</Button>
+				<Button size="Large" variant="contained" onClick={() => handleAddPokedex(name)}>{isAddedPokedex ? "REMOVE POKEDEX" : "ADD POKEDEX"}</Button>
 			</CardActions>
 		</Card>
 	);
