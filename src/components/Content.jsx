@@ -5,7 +5,7 @@ import { dark } from "constants/colors";
 
 const DivContent = styled.div `
 	background-color: ${dark.background.default};
-	height: 100%;
+	height: auto;
 	width: 100%;
 `;
 

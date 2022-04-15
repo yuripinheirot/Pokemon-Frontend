@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Box, AppBar, Toolbar, Typography } from "@mui/material";
+import { Box, AppBar, Toolbar, Typography, Container } from "@mui/material";
 
 export const heightHeader = 64;
 
@@ -22,12 +22,14 @@ export default function Header() {
 	const navigate = useNavigate();
 
 	return (
-		<Box id="headerAppBarUI" sx={style.headerAppBarUI}>
+		<Box id="headerAppBarUI" sx={style.headerAppBarUI} size="lg">
 			<AppBar position="static">
 				<Toolbar>
-					<Typography variant="h6" component="div" sx={style.title} onClick={() => navigate("/")}>
-            Pokemon Project
-					</Typography>
+					<Container>
+						<Typography variant="h6" component="div" sx={style.title} onClick={() => navigate("/")}>
+							Pokemon Project
+						</Typography>
+					</Container>
 				</Toolbar>
 			</AppBar>
 		</Box>
