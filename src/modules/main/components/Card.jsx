@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import MainStore from "../stores/main";
 
@@ -12,18 +13,16 @@ import Typography from "@mui/material/Typography";
 
 const ImgMediaCard = ({ name }) => {
 	const [data, setData] = useState({});
+	const [flavorText, setFlavorText] = useState("");
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		MainStore.getPokemonByName(name).then(setData);
-	}, [name]);
+	}, []);
 
 	useEffect(() => {
-		if (data.id) {
-			MainStore.getFlavorText(data.id).then(res => {
-				setData({ ...data, description: res });
-			});
-		}
-	}), [data];
+		data.id && MainStore.getFlavorText(data.id).then(setFlavorText);
+	}, [data]);
 
 
 	return (
@@ -40,11 +39,11 @@ const ImgMediaCard = ({ name }) => {
 					{name && name.toUpperCase()}
 				</Typography>
 				<Typography variant="body2" color="text.secondary" sx={{ minHeight: 70 }}>
-					{data && data.description}
+					{flavorText}
 				</Typography>
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
-				<Button size="Large" variant="outlined">DETAILS</Button>
+				<Button size="Large" variant="outlined" onClick={() => navigate(`/details/${data.id}`)}>DETAILS</Button>
 				<Button size="Large" variant="contained">ADD POKEDEX</Button>
 			</CardActions>
 		</Card>
