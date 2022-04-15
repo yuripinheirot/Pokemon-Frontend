@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import MainStore from "../stores/main";
 
 //material
 import Card from "@mui/material/Card";
@@ -9,22 +10,30 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const ImgMediaCard = ({ imageUrl, name, description }) => {
+const ImgMediaCard = ({ name }) => {
+	const [data, setData] = useState({});
+
+	useEffect(() => {
+		MainStore.getPokemonByName(name).then(res => {
+			setData(res);
+		});
+	}, [name]);
+
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
 			<CardMedia
 				component="img"
-				alt="green iguana"
+				alt={name}
 				height="200"
-				image={imageUrl}
+				image={data && data.sprites && data.sprites.front_default}
 			/>
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
 					{name && name.toUpperCase()}
 				</Typography>
 				<Typography variant="body2" color="text.secondary">
-					{description}
+					{data.description}
 				</Typography>
 			</CardContent>
 			<CardActions >
@@ -36,9 +45,7 @@ const ImgMediaCard = ({ imageUrl, name, description }) => {
 };
 
 ImgMediaCard.propTypes = {
-	imageUrl: PropTypes.string,
 	name: PropTypes.string,
-	description: PropTypes.string,
 };
 
 export default ImgMediaCard;

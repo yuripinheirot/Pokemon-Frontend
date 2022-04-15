@@ -1,1 +1,1 @@
-export const apiPokemon = "https://pokeapi.co/api/v2/pokemon";
+export const apiPokemon = "https://pokeapi.co/api/v2";

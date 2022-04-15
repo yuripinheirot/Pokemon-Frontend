@@ -8,8 +8,8 @@ const Main = () => {
 	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		MainStore.getPokemonOffset(1).then(res => {
-			setData(res.results || []);
+		MainStore.getPokemonOffset(0).then(res => {
+			setData(res.results);
 		});
 	}, []);
 
