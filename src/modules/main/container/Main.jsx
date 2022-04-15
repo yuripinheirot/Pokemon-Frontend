@@ -1,8 +1,13 @@
 import React from "react";
+import Content from "components/Content";
+
+import GridAvailablePokemons from "../components/GridAvailablePokemons";
 
 const Main = () => {
 	return (
-		<div>Main</div>
+		<Content id="ContentMain">
+			<GridAvailablePokemons />
+		</Content>
 	);
 };
 
