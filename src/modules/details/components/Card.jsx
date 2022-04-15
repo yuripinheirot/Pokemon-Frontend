@@ -27,13 +27,15 @@ const ImgMediaCard = ({ data, detailsAbilities }) => {
 			<Typography gutterBottom variant="h6" component="div">
         ABILITIES:
 			</Typography>
-			{sortedAbilities.map((item, index) => {
-				const effect = detailsAbilities.find(effect => effect.name === item.ability.name);
+			<Typography sx={{  overflowY: "scroll", height: 240 }}>
+				{sortedAbilities.map((item, index) => {
+					const effect = detailsAbilities.find(effect => effect.name === item.ability.name);
 
-				return <Typography key={index} variant="subtitle2" component="p">
-					{item.ability.name} - {effect && effect.effectDetails && effect.effectDetails.effect}
-				</Typography>;
-			})}
+					return <Typography key={index} variant="subtitle2" component="p">
+						<strong>{item.ability.name}</strong> - {effect && effect.effectDetails && effect.effectDetails.effect}
+					</Typography>;
+				})}
+			</Typography>
 		</>;
 	};
 
