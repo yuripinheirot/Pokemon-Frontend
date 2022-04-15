@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Card from "./Card";
 
 // eslint-disable-next-line no-unused-vars
-import { Button, CardContent, Typography, Grid } from "@mui/material";
+import { Button, CardContent, Typography, Grid, Container } from "@mui/material";
 
 const GridAvailablePokemons = ({ data }) => {
 
@@ -14,9 +14,11 @@ const GridAvailablePokemons = ({ data }) => {
 		</Grid>;
 	});
 
-	return <Grid container spacing={2} justifyContent='center'>
-		{renderCards}
-	</Grid>;
+	return <Container >
+		<Grid container spacing={2} justifyContent='center'>
+			{renderCards}
+		</Grid>;
+	</Container>; 
 };
 
 GridAvailablePokemons.propTypes = {
