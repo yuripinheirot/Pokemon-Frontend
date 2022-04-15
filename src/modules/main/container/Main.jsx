@@ -7,18 +7,27 @@ import SearchBar from "../components/SearchBar";
 
 const Main = () => {
 	const [data, setData] = useState([]);
+	const [dataFiltered, setDataFiltered] = useState([]);
 
 	useEffect(() => {
-		MainStore.getPokemonOffset(0).then(res => {
+		MainStore.getPokemonOffset().then(res => {
 			setData(res.results);
 		});
-	}, []);
+	}, [setData]);
 
+	useEffect(() => {
+		setDataFiltered(data);
+	}, [data, setDataFiltered]);
+
+	const handleSearch = value => {
+		const filtered = data.filter(item => item.name.includes(value));
+		setDataFiltered(filtered);
+	};
 
 	return (
 		<Content id="ContentMain">
-			<SearchBar />
-			<GridAvailablePokemons data={data} />
+			<SearchBar handleSearch={handleSearch} />
+			<GridAvailablePokemons data={dataFiltered} />
 		</Content>
 	);
 };

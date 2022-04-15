@@ -7,9 +7,8 @@ class MainStore {
 		return data;
 	};
 
-	getPokemonOffset = async (page) => {
-		const offeset = page * 20;
-		const { data } = await httpClient.get(`/pokemon?limit=20&offset=${offeset}`);
+	getPokemonOffset = async () => {
+		const { data } = await httpClient.get("/pokemon?limit=52&offset=0");
 
 		return data;
 	};

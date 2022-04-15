@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 
 import Card from "./Card";
 
-// eslint-disable-next-line no-unused-vars
 import { Grid, Container } from "@mui/material";
 
 const GridAvailablePokemons = ({ data }) => {
 
-	const renderCards = data.map((item, index) => {
-		return <Grid item sm={3} key={index}>
-			<Card key={index} name={item.name} />
+	const renderCards = data.map((item) => {
+		return <Grid item sm={3} key={item.name}>
+			<Card key={item.name} name={item.name} />
 		</Grid>;
 	});
 
