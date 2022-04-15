@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Content from "components/Content";
+import MainStore from "modules/main/stores/main";
 
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 
 const Main = () => {
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+		MainStore.getPokemonOffset(1).then(res => {
+			setData(res.results || []);
+		});
+	}, []);
+
 	return (
 		<Content id="ContentMain">
-			<GridAvailablePokemons />
+			<GridAvailablePokemons data={data} />
 		</Content>
 	);
 };

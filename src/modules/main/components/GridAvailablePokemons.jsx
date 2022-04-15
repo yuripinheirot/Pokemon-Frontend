@@ -1,11 +1,18 @@
 import React from "react";
-// import mainStore from "modules/main/stores/main";
+import PropTypes from "prop-types";
 
 import Card from "./Card";
 
-const GridAvailablePokemons = () => {
+const GridAvailablePokemons = ({ data }) => {
+	const renderCards = data.map((item, index) => <Card key={index} {...item} />);
 
-	return <Card />;
+	return <div>
+		{renderCards}
+	</div>;
+};
+
+GridAvailablePokemons.propTypes = {
+	data: PropTypes.array,
 };
 
 export default GridAvailablePokemons;

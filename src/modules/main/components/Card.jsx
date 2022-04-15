@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import MainStore from "modules/main/stores/main";
+import React from "react";
+import PropTypes from "prop-types";
 
 //material
 import Card from "@mui/material/Card";
@@ -9,43 +9,36 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-export default function ImgMediaCard() {
-	// eslint-disable-next-line no-unused-vars
-	const [data, setData] = useState([]);
-
-
-	const pikachu = () => {
-		MainStore.getPokemonByName("pikachu").then(res => {
-			console.log({ res });
-			setData(res);
-		});
-	};
-
-	useEffect(() => {
-		pikachu();
-	}, []);
+const ImgMediaCard = ({ imageUrl, name, description }) => {
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
 			<CardMedia
 				component="img"
 				alt="green iguana"
-				height="140"
-				image="/static/images/cards/contemplative-reptile.jpg"
+				height="200"
+				image={imageUrl}
 			/>
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
-					{data.name}
+					{name && name.toUpperCase()}
 				</Typography>
 				<Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+					{description}
 				</Typography>
 			</CardContent>
-			<CardActions>
-				<Button size="small">Share</Button>
-				<Button size="small">Learn More</Button>
+			<CardActions >
+				<Button size="Large" >DETAILS</Button>
+				<Button size="Large" >ADD POKEDEX</Button>
 			</CardActions>
 		</Card>
 	);
-}
+};
+
+ImgMediaCard.propTypes = {
+	imageUrl: PropTypes.string,
+	name: PropTypes.string,
+	description: PropTypes.string,
+};
+
+export default ImgMediaCard;
