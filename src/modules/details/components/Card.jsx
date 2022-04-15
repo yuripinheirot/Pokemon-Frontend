@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import MainStore from "../stores/main";
+// import MainStore from "../stores/main";
 
 //material
 import Card from "@mui/material/Card";
@@ -11,39 +11,28 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const ImgMediaCard = ({ name }) => {
-	const [data, setData] = useState({});
-	const [flavorText, setFlavorText] = useState("");
+const ImgMediaCard = ({ data }) => {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		MainStore.getPokemonByName(name).then(setData);
-	}, []);
-
-	useEffect(() => {
-		data.id && MainStore.getFlavorText(data.id).then(setFlavorText);
-	}, [data]);
-
-
 	return (
-		<Card sx={{ maxWidth: 345 }}>
+		<Card sx={{ display: "flex", flexDirection: "column", width: "40%", height: "80%" }}>
 			<CardMedia
 				component="img"
-				alt={name}
+				alt={data.name}
 				height="300"
 				image={data && data.sprites && data.sprites.front_default}
-				sx={{ objectFit: "unset" }}
+				sx={{ objectFit: "contain" }}
 			/>
-			<CardContent>
+			<CardContent sx={{height: "100%"}}>
 				<Typography gutterBottom variant="h5" component="div">
-					{name && name.toUpperCase()}
+					{data.name && data.name.toUpperCase()}
 				</Typography>
 				<Typography variant="body2" color="text.secondary" sx={{ minHeight: 70 }}>
-					{flavorText}
+					
 				</Typography>
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
-				<Button size="Large" variant="outlined" onClick={() => navigate(`/details/${data.name}`)}>DETAILS</Button>
+				<Button size="Large" variant="outlined" onClick={() => navigate("/")}>BACK</Button>
 				<Button size="Large" variant="contained">ADD POKEDEX</Button>
 			</CardActions>
 		</Card>
@@ -51,7 +40,8 @@ const ImgMediaCard = ({ name }) => {
 };
 
 ImgMediaCard.propTypes = {
-	name: PropTypes.string,
+	data: PropTypes.object,
+	flavorText: PropTypes.string,
 };
 
 export default ImgMediaCard;
