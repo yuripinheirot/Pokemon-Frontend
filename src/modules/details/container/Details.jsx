@@ -19,9 +19,13 @@ const Details = () => {
 	useEffect(() => {
 		data.id && DetailsStore.getFlavorText(data.id).then(setFlavorText);
 
+		const promises = [];
+
 		data.abilities && data.abilities.forEach(ability => {
-			DetailsStore.getAbilityDetails(ability.ability.name).then(res => setDetailsAbilities([...detailsAbilities, res]));
+			promises.push(DetailsStore.getAbilityDetails(ability.ability.name));
 		});
+
+		Promise.all(promises).then(setDetailsAbilities);
 	}, [data]);
 
 	return <Container sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>

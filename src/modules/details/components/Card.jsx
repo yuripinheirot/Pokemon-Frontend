@@ -31,7 +31,7 @@ const ImgMediaCard = ({ data, detailsAbilities }) => {
 				const effect = detailsAbilities.find(effect => effect.name === item.ability.name);
 
 				return <Typography key={index} variant="subtitle2" component="p">
-					{item.ability.name} - {effect && effect.effectDetails.effect}
+					{item.ability.name} - {effect && effect.effectDetails && effect.effectDetails.effect}
 				</Typography>;
 			})}
 		</>;
