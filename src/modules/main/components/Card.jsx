@@ -14,10 +14,16 @@ const ImgMediaCard = ({ name }) => {
 	const [data, setData] = useState({});
 
 	useEffect(() => {
-		MainStore.getPokemonByName(name).then(res => {
-			setData(res);
-		});
+		MainStore.getPokemonByName(name).then(setData);
 	}, [name]);
+
+	useEffect(() => {
+		if (data.id) {
+			MainStore.getFlavorText(data.id).then(res => {
+				setData({ ...data, description: res });
+			});
+		}
+	}), [data];
 
 
 	return (
@@ -25,20 +31,21 @@ const ImgMediaCard = ({ name }) => {
 			<CardMedia
 				component="img"
 				alt={name}
-				height="200"
+				height="300"
 				image={data && data.sprites && data.sprites.front_default}
+				sx={{ objectFit: "unset" }}
 			/>
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
 					{name && name.toUpperCase()}
 				</Typography>
-				<Typography variant="body2" color="text.secondary">
-					{data.description}
+				<Typography variant="body2" color="text.secondary" sx={{ minHeight: 70 }}>
+					{data && data.description}
 				</Typography>
 			</CardContent>
-			<CardActions >
-				<Button size="Large" >DETAILS</Button>
-				<Button size="Large" >ADD POKEDEX</Button>
+			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
+				<Button size="Large" variant="outlined">DETAILS</Button>
+				<Button size="Large" variant="contained">ADD POKEDEX</Button>
 			</CardActions>
 		</Card>
 	);
