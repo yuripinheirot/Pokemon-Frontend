@@ -7,64 +7,18 @@ import availablePokemons from "constants/pokemons";
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
 
-
 const Main = () => {
 	const [data, setData] = useState([]);
 	const [dataFiltered, setDataFiltered] = useState([]);
 	const [pokedex, setPokedex] = useState([]);
 	const [isPending, startTransition] = useTransition();
-	
-	const pokemonDataBuilder = async (pokemon) => {
-		const cachePokemons = () => JSON.parse(localStorage.getItem("pokemons"));
-		if (!cachePokemons()) localStorage.setItem("pokemons", JSON.stringify({}));
 
-		const pokemonCached = cachePokemons()[pokemon];
-		if (pokemonCached) return;
+	const loadData = async () => {
+		await MainStore.loadData();
+		const dataStoraged = JSON.parse(localStorage.getItem("pokemons"));
+		const dataValue = Object.values(dataStoraged);
 
-		pokemon = await MainStore.getPokemonByName(pokemon);
-
-		const pokemonFormated = {
-			name: pokemon.name,
-			image: pokemon.sprites.front_default,
-			abilities: pokemon.abilities,
-			description: await MainStore.getFlavorText(pokemon.name),
-		};
-
-		const abilitiesNames = pokemon.abilities.map((ability) => ability.ability.name);
-
-		abilitiesNames.forEach((ability, index) => {
-			pokemonFormated.abilities[index] = MainStore.getAbility(ability);
-		});
-
-		const fetchedAbilities = await Promise.all(pokemonFormated.abilities);
-
-		pokemonFormated.abilities = fetchedAbilities;
-
-		pokemonFormated.abilities.forEach((ability, index) => {
-			const { short_effect } = ability.effect_entries.find((effect) => effect.language.name === "en");
-
-			pokemonFormated.abilities[index] = {
-				name: ability.name,
-				effect: short_effect,
-			};
-		});
-
-		const newStorage = {
-			...cachePokemons(),
-			[pokemonFormated.name]: pokemonFormated,
-		};
-
-		localStorage.setItem("pokemons", JSON.stringify(newStorage));
-		console.log("setou");
-		return pokemonFormated;
-	};
-
-	const loadData = () => {
-		const data = availablePokemons.map((pokemon) => {
-			return pokemonDataBuilder(pokemon);
-		});
-
-		Promise.all(data).then(setData);
+		setData(dataValue);
 	};
 
 	useEffect(() => {
@@ -85,8 +39,8 @@ const Main = () => {
 
 	return (
 		<Content id='ContentMain'>
-			<SearchBar handleSearch={handleSearch} />
-			<GridAvailablePokemons data={dataFiltered} pokedex={pokedex} />
+			<SearchBar handleSearch={handleSearch}/>
+			<GridAvailablePokemons data={data}/>
 		</Content>
 	);
 };

@@ -6,7 +6,6 @@ import Card from "./Card";
 import { Grid, Container } from "@mui/material";
 
 const GridAvailablePokemons = ({ data, handleAddPokedex }) => {
-
 	const renderCards = data.map((item) => {
 		return (
 			<Grid item sm={3} key={item.name}>
