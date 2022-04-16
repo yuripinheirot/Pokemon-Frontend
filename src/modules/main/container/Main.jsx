@@ -2,68 +2,69 @@ import React, { useEffect, useState, useTransition } from "react";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
+import availablePokemons from "constants/pokemons";
 
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
+
 
 const Main = () => {
 	const [data, setData] = useState([]);
 	const [dataFiltered, setDataFiltered] = useState([]);
 	const [pokedex, setPokedex] = useState([]);
 	const [isPending, startTransition] = useTransition();
+	
+	const pokemonDataBuilder = async (pokemon) => {
+		const cachePokemons = () => JSON.parse(localStorage.getItem("pokemons"));
+		if (!cachePokemons()) localStorage.setItem("pokemons", JSON.stringify({}));
 
-	const loadData = async () => {
-		const pokemons = await MainStore.getPokemonOffset();
-		const detailsPokemonsPromises = [];
-		const detailsAbilitiesPromises = [];
+		const pokemonCached = cachePokemons()[pokemon];
+		if (pokemonCached) return;
 
-		pokemons.results.forEach((pokemon) => {
-			detailsPokemonsPromises.push(MainStore.getPokemonByName(pokemon.name));
+		pokemon = await MainStore.getPokemonByName(pokemon);
+
+		const pokemonFormated = {
+			name: pokemon.name,
+			image: pokemon.sprites.front_default,
+			abilities: pokemon.abilities,
+			description: await MainStore.getFlavorText(pokemon.name),
+		};
+
+		const abilitiesNames = pokemon.abilities.map((ability) => ability.ability.name);
+
+		abilitiesNames.forEach((ability, index) => {
+			pokemonFormated.abilities[index] = MainStore.getAbility(ability);
 		});
 
-		let details = await Promise.all(detailsPokemonsPromises);
+		const fetchedAbilities = await Promise.all(pokemonFormated.abilities);
 
-		details = await Promise.all(
-			details.map(async (pokemon) => {
-				return {
-					name: pokemon.name,
-					image: pokemon.sprites.front_default,
-					abilities: pokemon.abilities,
-					description: await MainStore.getFlavorText(pokemon.name),
-				};
-			})
-		);
+		pokemonFormated.abilities = fetchedAbilities;
 
-		let abilitiesName = [];
+		pokemonFormated.abilities.forEach((ability, index) => {
+			const { short_effect } = ability.effect_entries.find((effect) => effect.language.name === "en");
 
-		for (let pokemon of details) {
-			for (let ability of pokemon.abilities) {
-				if (!abilitiesName.includes(ability.ability.name)) {
-					abilitiesName.push(ability.ability.name);
-				}
-			}
-		}
-
-		abilitiesName.forEach((ability) => {
-			detailsAbilitiesPromises.push(MainStore.getAbility(ability));
+			pokemonFormated.abilities[index] = {
+				name: ability.name,
+				effect: short_effect,
+			};
 		});
 
-		let detailsAbilities = await Promise.all(detailsAbilitiesPromises);
+		const newStorage = {
+			...cachePokemons(),
+			[pokemonFormated.name]: pokemonFormated,
+		};
 
-		details.forEach((detail) => {
-			detail.abilities.forEach((ability, index) => {
-				const abilityObject = detailsAbilities.find((detailAbility) => detailAbility.name === ability.ability.name);
-				const { short_effect } = abilityObject.effect_entries.find((effect) => effect.language.name === "en");
+		localStorage.setItem("pokemons", JSON.stringify(newStorage));
+		console.log("setou");
+		return pokemonFormated;
+	};
 
-				detail.abilities[index] = {
-					name: ability.ability && ability.ability.name,
-					effect: short_effect || "",
-				};
-			});
+	const loadData = () => {
+		const data = availablePokemons.map((pokemon) => {
+			return pokemonDataBuilder(pokemon);
 		});
 
-		console.log({ details });
-		setData(details);
+		Promise.all(data).then(setData);
 	};
 
 	useEffect(() => {
