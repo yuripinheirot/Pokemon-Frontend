@@ -9,7 +9,7 @@ class PokedexStore {
 		return data;
 	};
 
-	getPokedex = async () => {
+	fecthPokedex = async () => {
 		const {
 			data: { data },
 		} = await httpPrisma.get("/pokedex");

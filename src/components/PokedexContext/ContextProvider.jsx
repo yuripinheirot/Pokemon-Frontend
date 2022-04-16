@@ -11,6 +11,10 @@ const PokedexProvider = ({ children }) => {
 		await PokedexStore.addPokedex(pokemon);
 	};
 
+	const removePokedex = async (pokemon) => {
+		await PokedexStore.removePokedex(pokemon);
+	};
+
 	const fetchPokedex = () => {
 		PokedexStore.getPokedex().then(setPokedex);
 	};

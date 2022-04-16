@@ -19,6 +19,12 @@ class MainStore {
 
 		return flavorText;
 	};
+
+	getAbility = async (ability) => {
+		const { data } = await httpPokeApi.get(`/ability/${ability}`);
+
+		return data;
+	};
 }
 
 export default new MainStore();
