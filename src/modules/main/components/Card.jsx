@@ -11,43 +11,42 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const ImgMediaCard = ({ data, handleAddPokedex, flavorText, isAddedPokedex }) => {
+const ImgMediaCard = ({ name, image, description, handleAddPokedex, isAddedPokedex }) => {
 	const navigate = useNavigate();
 
 	const onHandleAddPokedex = () => {
-		handleAddPokedex(data.name);
+		handleAddPokedex(name);
 	};
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
-			<CardMedia
-				component="img"
-				alt={data && data.name}
-				height="300"
-				image={data && data.sprites && data.sprites.front_default}
-				sx={{ objectFit: "unset" }}
-			/>
+			<CardMedia component='img' alt={name + ".image"} height='300' image={image} sx={{ objectFit: "unset" }} />
 			<CardContent>
-				<Typography gutterBottom variant="subtitle1" component="div">
-					{data && data.name && data.name.toUpperCase()}
+				<Typography gutterBottom variant='subtitle1' component='div'>
+					{name.toUpperCase()}
 				</Typography>
-				<Typography variant="subtitle2" color="text.secondary" sx={{ minHeight: 70 }}>
-					{flavorText}
+				<Typography variant='subtitle2' color='text.secondary' sx={{ minHeight: 70 }}>
+					{description}
 				</Typography>
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
-				<Button size="Large" variant="outlined" onClick={() => navigate(`/details/${data.name}`)}>DETAILS</Button>
-				<Button size="Large" variant="contained" onClick={onHandleAddPokedex}>{isAddedPokedex ? "REMOVE POKEDEX" : "ADD POKEDEX"}</Button>
+				<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${name}`)}>
+					DETAILS
+				</Button>
+				<Button size='Large' variant='contained' onClick={onHandleAddPokedex}>
+					{isAddedPokedex ? "REMOVE POKEDEX" : "ADD POKEDEX"}
+				</Button>
 			</CardActions>
 		</Card>
 	);
 };
 
 ImgMediaCard.propTypes = {
-	data: PropTypes.object,
+	name: PropTypes.string,
+	image: PropTypes.string,
+	description: PropTypes.string,
 	handleAddPokedex: PropTypes.func,
-	flavorText: PropTypes.string,
-	isAddedPokedex: PropTypes.bool
+	isAddedPokedex: PropTypes.bool,
 };
 
 export default ImgMediaCard;

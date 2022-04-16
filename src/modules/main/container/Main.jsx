@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useTransition } from "react";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
-import Pokedex from "modules/main/stores/pokedex";
+import PokedexStore from "modules/main/stores/pokedex";
 
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
@@ -14,22 +14,25 @@ const Main = () => {
 
 	const loadData = async () => {
 		const pokemons = await MainStore.getPokemonOffset();
-		const detailsPokemons = [];
-		let detailsAbilities = [];
+		const detailsPokemonsPromises = [];
+		const detailsAbilitiesPromises = [];
 
 		pokemons.results.forEach((pokemon) => {
-			detailsPokemons.push(MainStore.getPokemonByName(pokemon.name));
+			detailsPokemonsPromises.push(MainStore.getPokemonByName(pokemon.name));
 		});
 
-		let details = await Promise.all(detailsPokemons);
+		let details = await Promise.all(detailsPokemonsPromises);
 
-		details = details.map((pokemon) => {
-			return {
-				name: pokemon.name,
-				image: pokemon.sprites.front_default,
-				abilities: pokemon.abilities,
-			};
-		});
+		details = await Promise.all(
+			details.map(async (pokemon) => {
+				return {
+					name: pokemon.name,
+					image: pokemon.sprites.front_default,
+					abilities: pokemon.abilities,
+					description: await MainStore.getFlavorText(pokemon.name),
+				};
+			})
+		);
 
 		let abilitiesName = [];
 
@@ -42,10 +45,10 @@ const Main = () => {
 		}
 
 		abilitiesName.forEach((ability) => {
-			detailsAbilities.push(MainStore.getAbility(ability));
+			detailsAbilitiesPromises.push(MainStore.getAbility(ability));
 		});
 
-		detailsAbilities = await Promise.all(detailsAbilities);
+		let detailsAbilities = await Promise.all(detailsAbilitiesPromises);
 
 		details.forEach((detail) => {
 			detail.abilities.forEach((ability, index) => {
@@ -53,13 +56,13 @@ const Main = () => {
 				const { short_effect } = abilityObject.effect_entries.find((effect) => effect.language.name === "en");
 
 				detail.abilities[index] = {
-					name: ability.ability.name,
-					effect: short_effect,
+					name: ability.ability && ability.ability.name,
+					effect: short_effect || "",
 				};
 			});
 		});
 
-		console.log({ details, detailsAbilities });
+		console.log({ details });
 		setData(details);
 	};
 
