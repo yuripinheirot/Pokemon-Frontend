@@ -2,7 +2,6 @@ import React, { useEffect, useState, useTransition } from "react";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
-import availablePokemons from "constants/pokemons";
 
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
@@ -13,16 +12,8 @@ const Main = () => {
 	const [pokedex, setPokedex] = useState([]);
 	const [isPending, startTransition] = useTransition();
 
-	const loadData = async () => {
-		await MainStore.loadData();
-		const dataStoraged = JSON.parse(localStorage.getItem("pokemons"));
-		const dataValue = Object.values(dataStoraged);
-
-		setData(dataValue);
-	};
-
 	useEffect(() => {
-		loadData();
+		MainStore.loadData(1).then(setData);
 	}, []);
 
 	useEffect(() => {

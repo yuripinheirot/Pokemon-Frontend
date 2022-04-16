@@ -1,5 +1,4 @@
 import { httpPokeApi } from "utils/httpClient";
-import availablePokemons from "constants/pokemons";
 
 class MainStore {
 	getPokemonByName = async (name) => {
@@ -66,9 +65,16 @@ class MainStore {
 		return pokemonFormated;
 	};
 
-	loadData = async () => {
-		const data = availablePokemons.map(async (pokemon) => this.pokemonDataBuilder(pokemon));
-		await Promise.all(data);
+	getPokemonOffset = async (page) => {
+		const offset = (page - 1) * 20;
+		const { data } = await httpPokeApi.get(`/pokemon?limit=24&offset=${offset}`);
+
+		return data;
+	};
+
+	loadData = async (page) => {
+		const { results } = await this.getPokemonOffset(page);
+		return results.map((pokemon) => pokemon.name);
 	};
 }
 
