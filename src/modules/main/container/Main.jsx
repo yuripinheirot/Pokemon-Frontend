@@ -19,6 +19,7 @@ import { Pagination, Button } from "@mui/material";
 const Main = () => {
 	const pages = 47;
 	const [data, setData] = useState([]);
+	const [pokedex, setPokedex] = useState([]);
 	const [params, setParams] = useSearchParams();
 	const [openDialog, setOpenDialog] = useState(false);
 	const currentPage = Number(params.get("page"));
@@ -89,13 +90,14 @@ const Main = () => {
 		if (!currentPage) setParams({ page: 1 });
 
 		MainStore.loadData(currentPage).then(setData);
+		PokedexStore.fecthPokedex().then(setPokedex);
 	}, [currentPage]);
 
 	return (
 		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
 			<SearchBar handleSearch={handleSearch} />
 			<PaginationComponent />
-			<Grid data={data} />
+			<Grid data={data} pokedex={pokedex} />
 			<PaginationComponent />
 			<AlertDialog />
 		</Content>

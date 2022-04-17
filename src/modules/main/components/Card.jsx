@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
-const ImgMediaCard = ({ pokemon, handleAddPokedex }) => {
+const ImgMediaCard = ({ pokemon, handleAddPokedex, isAddedPokedex }) => {
 	const [data, setData] = useState({});
 	const [isPeding, startTransition] = useTransition();
 	const navigate = useNavigate();
@@ -73,8 +73,8 @@ const ImgMediaCard = ({ pokemon, handleAddPokedex }) => {
 				<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
 					DETAILS
 				</Button>
-				<Button size='Large' variant='contained' onClick={onHandleAddPokedex}>
-					{data.isAddedPokedex ? "REMOVE POKEDEX" : "ADD POKEDEX"}
+				<Button size='Large' variant='contained' onClick={onHandleAddPokedex} color={isAddedPokedex ? "error" : "primary"}>
+					{isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
 				</Button>
 			</CardActions>
 		</Card>
@@ -84,6 +84,7 @@ const ImgMediaCard = ({ pokemon, handleAddPokedex }) => {
 ImgMediaCard.propTypes = {
 	pokemon: PropTypes.string,
 	handleAddPokedex: PropTypes.func,
+	isAddedPokedex: PropTypes.bool,
 };
 
 export default ImgMediaCard;
