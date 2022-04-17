@@ -26,6 +26,8 @@ const Main = () => {
 	const navigate = useNavigate();
 
 	const handleSearch = async (pokemonToSearch) => {
+		pokemonToSearch = pokemonToSearch.toLowerCase();
+
 		const pokemon = await MainStore.pokemonDataBuilder(pokemonToSearch);
 
 		if (!pokemon) return setOpenDialog(true);
@@ -62,10 +64,6 @@ const Main = () => {
 	};
 
 	const AlertDialog = () => {
-		const handleClickOpen = () => {
-			setOpenDialog(true);
-		};
-
 		const handleClose = () => {
 			setOpenDialog(false);
 		};
@@ -96,7 +94,7 @@ const Main = () => {
 
 		MainStore.loadData(currentPage).then(setData);
 		PokedexStore.fecthPokedex().then(setPokedex);
-	}, []);
+	}, [currentPage]);
 
 	return (
 		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
