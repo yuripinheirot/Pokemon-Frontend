@@ -13,11 +13,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import Fade from "@mui/material/Fade";
 
 const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 	const [data, setData] = useState({});
 	const [isPeding, startTransition] = useTransition();
 	const navigate = useNavigate();
+	const loading = isPeding && !data.name;
 
 	const loadData = async () => {
 		const pokemonStoraged = JSON.parse(localStorage.getItem("pokemons"));
@@ -48,41 +50,43 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 		});
 	}, []);
 
-	return isPeding || !data.description ? (
+	return loading ? (
 		<SkeletonFeedback />
 	) : (
-		<Card sx={{ height: 450, display: "flex", flexDirection: "column" }}>
-			<Box sx={{ height: "50%" }}>
-				<CardMedia
-					component='img'
-					alt={pokemon + ".image"}
-					height='100%'
-					image={data.image || pokemonLogo}
-					sx={{ objectFit: "unset" }}
-				/>
-			</Box>
-			<CardContent sx={{ height: "30%", display: "flex", flexDirection: "column" }}>
-				<Typography gutterBottom variant='subtitle1' component='div'>
-					{data.name && data.name.toUpperCase()}
-				</Typography>
-				<Typography variant='subtitle2' color='text.secondary' sx={{ overflowY: "auto", height: "auto" }}>
-					{data.description}
-				</Typography>
-			</CardContent>
-			<CardActions sx={{ display: "flex", height: "10%" }}>
-				<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
-					DETAILS
-				</Button>
-				<Button
-					size='Large'
-					variant='contained'
-					onClick={onHandleAddRemovePokedex}
-					color={isAddedPokedex ? "error" : "primary"}
-				>
-					{isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
-				</Button>
-			</CardActions>
-		</Card>
+		<Fade in={!loading} style={{ transitionDelay: loading ? "500ms" : "0ms" }} {...(!loading ? { timeout: 1000 } : {})}>
+			<Card sx={{ height: 450, display: "flex", flexDirection: "column" }}>
+				<Box sx={{ height: "50%" }}>
+					<CardMedia
+						component='img'
+						alt={pokemon + ".image"}
+						height='100%'
+						image={data.image || pokemonLogo}
+						sx={{ objectFit: "unset" }}
+					/>
+				</Box>
+				<CardContent sx={{ height: "30%", display: "flex", flexDirection: "column" }}>
+					<Typography gutterBottom variant='subtitle1' component='div'>
+						{data.name && data.name.toUpperCase()}
+					</Typography>
+					<Typography variant='subtitle2' color='text.secondary' sx={{ overflowY: "auto", height: "auto" }}>
+						{data.description}
+					</Typography>
+				</CardContent>
+				<CardActions sx={{ display: "flex", height: "10%" }}>
+					<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
+						DETAILS
+					</Button>
+					<Button
+						size='Large'
+						variant='contained'
+						onClick={onHandleAddRemovePokedex}
+						color={isAddedPokedex ? "error" : "primary"}
+					>
+						{isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
+					</Button>
+				</CardActions>
+			</Card>
+		</Fade>
 	);
 };
 
