@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import MainStore from "../stores/main";
 import pokemonLogo from "assets/pokemon.png";
+import { style } from "./style";
 
 //material
 import Card from "@mui/material/Card";
@@ -38,8 +39,8 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 
 	const SkeletonFeedback = () => {
 		return (
-			<Box sx={{ pt: 0.5, width: "100%", height: "100%" }}>
-				<Skeleton width='100%' height={300} />
+			<Box sx={style.SkeletonFeedback}>
+				<Skeleton width='100%' height={430} />
 			</Box>
 		);
 	};
@@ -54,8 +55,8 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 		<SkeletonFeedback />
 	) : (
 		<Fade in={!loading} style={{ transitionDelay: loading ? "500ms" : "0ms" }} {...(!loading ? { timeout: 1000 } : {})}>
-			<Card sx={{ height: 450, display: "flex", flexDirection: "column" }}>
-				<Box sx={{ height: "50%" }}>
+			<Card sx={style.Card}>
+				<Box sx={style.Box}>
 					<CardMedia
 						component='img'
 						alt={pokemon + ".image"}
@@ -64,15 +65,15 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 						sx={{ objectFit: "unset" }}
 					/>
 				</Box>
-				<CardContent sx={{ height: "30%", display: "flex", flexDirection: "column" }}>
+				<CardContent sx={style.CardContent}>
 					<Typography gutterBottom variant='subtitle1' component='div'>
 						{data.name && data.name.toUpperCase()}
 					</Typography>
-					<Typography variant='subtitle2' color='text.secondary' sx={{ overflowY: "auto", height: "auto" }}>
+					<Typography variant='subtitle2' color='text.secondary' sx={style.Description}>
 						{data.description}
 					</Typography>
 				</CardContent>
-				<CardActions sx={{ display: "flex", height: "10%" }}>
+				<CardActions sx={style.CardActions}>
 					<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
 						DETAILS
 					</Button>
