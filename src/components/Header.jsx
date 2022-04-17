@@ -1,34 +1,46 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import PokemonLogo from "assets/pokemon.png";
 
-import { Box, AppBar, Toolbar, Typography, Container } from "@mui/material";
+import { Box, AppBar, Toolbar, Container } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 
 export const heightHeader = 64;
 
 const style = {
-	headerAppBarUI: {
+	box: {
 		flexGrow: 1,
 		height: heightHeader,
 	},
-	title: {
-		flexGrow: 1,
+	toolBar: {
+		height: heightHeader,
 	},
-	menu: {
-		marginTop: 35,
-	}
+	IconButton: {
+		height: "100%",
+	},
+	img: {
+		height: "100%",
+	},
 };
 
 export default function Header() {
 	const navigate = useNavigate();
 
 	return (
-		<Box id="headerAppBarUI" sx={style.headerAppBarUI} size="lg">
-			<AppBar position="static">
-				<Toolbar>
-					<Container>
-						<Typography variant="h5" component="div" sx={style.title} onClick={() => navigate("/?page=1")}>
-							POKEMON
-						</Typography>
+		<Box sx={style.box}>
+			<AppBar position='static'>
+				<Toolbar sx={style.toolBar}>
+					<Container style={style.toolBar}>
+						<IconButton
+							size='large'
+							edge='start'
+							color='inherit'
+							aria-label='menu'
+							sx={style.IconButton}
+							onClick={() => navigate("/?page=1")}
+						>
+							<img src={PokemonLogo} alt='pokemon.logo' style={style.img} />
+						</IconButton>
 					</Container>
 				</Toolbar>
 			</AppBar>
