@@ -1,8 +1,6 @@
 import React, { useState, useTransition, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import MainStore from "modules/main/stores/main";
-import PokedexStore from "modules/main/stores/pokedex";
 
 //material
 import Card from "@mui/material/Card";
@@ -14,9 +12,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
-const ImgMediaCard = ({ pokemon }) => {
-	const [data, setData] = useState({});
-	const [addedPokedex, setAddedPokedex] = useState(false);
+const ImgMediaCard = ({ data, isAddedPokedex, handleAddRemovePokedex }) => {
 	const [isPeding, startTransition] = useTransition();
 	const navigate = useNavigate();
 
@@ -26,14 +22,6 @@ const ImgMediaCard = ({ pokemon }) => {
 				<Skeleton width='100%' height={300} />
 			</Box>
 		);
-	};
-
-	const handleAddRemovePokedex = () => {
-		if (addedPokedex) {
-			PokedexStore.removePokedex(pokemon).then(res => setAddedPokedex(false));
-		} else {
-			PokedexStore.addPokedex(pokemon).then(res => setAddedPokedex(true));
-		}
 	};
 
 	const Abilities = () => {
@@ -66,16 +54,6 @@ const ImgMediaCard = ({ pokemon }) => {
 		);
 	};
 
-	useEffect(() => {
-		startTransition(() => {
-			MainStore.pokemonDataBuilder(pokemon).then(setData);
-
-			PokedexStore.fecthPokedex().then((res) => {
-				setAddedPokedex(res.includes(pokemon));
-			});
-		});
-	}, []);
-
 	return isPeding && !data.name ? (
 		<SkeletonFeedback />
 	) : (
@@ -97,8 +75,13 @@ const ImgMediaCard = ({ pokemon }) => {
 				<Button size='Large' variant='outlined' onClick={() => navigate(-1)}>
 					BACK
 				</Button>
-				<Button size='Large' variant='contained' color={!addedPokedex ? "primary" : "error"} onClick={handleAddRemovePokedex}>
-					{!addedPokedex ? "ADD POKEDEX" : "RMV POKEDEX"}
+				<Button
+					size='Large'
+					variant='contained'
+					color={!isAddedPokedex ? "primary" : "error"}
+					onClick={handleAddRemovePokedex}
+				>
+					{!isAddedPokedex ? "ADD POKEDEX" : "RMV POKEDEX"}
 				</Button>
 			</CardActions>
 		</Card>
@@ -106,7 +89,9 @@ const ImgMediaCard = ({ pokemon }) => {
 };
 
 ImgMediaCard.propTypes = {
-	pokemon: PropTypes.string,
+	data: PropTypes.object,
+	isAddedPokedex: PropTypes.bool,
+	handleAddRemovePokedex: PropTypes.func,
 };
 
 export default ImgMediaCard;

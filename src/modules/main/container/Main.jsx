@@ -99,16 +99,16 @@ const Main = () => {
 	return (
 		<Content id='ContentMain'>
 			<Grid container spacing={2} sx={{ marginY: 2 }}>
-				<Grid item sm='12'>
+				<Grid item sm={12}>
 					<SearchBar handleSearch={handleSearch} />
 				</Grid>
-				<Grid item sm='12'>
+				<Grid item sm={12}>
 					<PaginationComponent />
 				</Grid>
-				<Grid item sm='12' sx={{ minHeight: 2780 }}>
+				<Grid item sm={12} sx={{ minHeight: 2780 }}>
 					<GridCards data={data} pokedex={pokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
 				</Grid>
-				<Grid item sm='12'>
+				<Grid item sm={12}>
 					<PaginationComponent />
 				</Grid>
 			</Grid>
