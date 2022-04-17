@@ -66,13 +66,14 @@ class MainStore {
 	};
 
 	getPokemonOffset = async (page) => {
-		const offset = (page - 1) * 20;
+		const offset = (page - 1) * 24;
 		const { data } = await httpPokeApi.get(`/pokemon?limit=24&offset=${offset}`);
 
 		return data;
 	};
 
 	loadData = async (page) => {
+		console.log(page);
 		const { results } = await this.getPokemonOffset(page);
 		return results.map((pokemon) => pokemon.name);
 	};

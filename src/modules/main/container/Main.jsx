@@ -14,7 +14,8 @@ const Main = () => {
 	const [dataFiltered, setDataFiltered] = useState([]);
 	const [pokedex, setPokedex] = useState([]);
 	const [isPending, startTransition] = useTransition();
-	const [params, setParams] = useSearchParams({ page: 1 });
+	const [params, setParams] = useSearchParams();
+	const currentPage = Number(params.get("page"));
 
 	const handleSearch = (value) => {
 		const filtered = data.filter((item) => item.name.includes(value));
@@ -27,14 +28,13 @@ const Main = () => {
 	const PaginationComponent = () => {
 		const onHandleChangePage = (event, page) => {
 			setParams({ page });
+
 			MainStore.loadData(page).then(setData);
 		};
 
-		const page = params.get("page");
-
 		return (
 			<Pagination
-				page={Number(page)}
+				page={currentPage}
 				count={pages}
 				boundaryCount={2}
 				sx={{ display: "flex", justifyContent: "center" }}
@@ -44,7 +44,7 @@ const Main = () => {
 	};
 
 	useEffect(() => {
-		MainStore.loadData(params.page).then(setData);
+		MainStore.loadData(currentPage).then(setData);
 	}, []);
 
 	useEffect(() => {
