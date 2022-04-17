@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useTransition, useLayoutEffect } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import MainStore from "../stores/main";
@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 import Fade from "@mui/material/Fade";
+import Grid from "@mui/material/Grid";
 
 const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 	const [data, setData] = useState({});
@@ -56,36 +57,38 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 	) : (
 		<Fade in={!loading} style={{ transitionDelay: loading ? "500ms" : "0ms" }} {...(!loading ? { timeout: 1000 } : {})}>
 			<Card sx={style.Card}>
-				<Box sx={style.Box}>
-					<CardMedia
-						component='img'
-						alt={pokemon + ".image"}
-						height='100%'
-						image={data.image || pokemonLogo}
-						sx={{ objectFit: "unset" }}
-					/>
-				</Box>
-				<CardContent sx={style.CardContent}>
-					<Typography gutterBottom variant='subtitle1' component='div'>
-						{data.name && data.name.toUpperCase()}
-					</Typography>
-					<Typography variant='subtitle2' color='text.secondary' sx={style.Description}>
-						{data.description}
-					</Typography>
-				</CardContent>
-				<CardActions sx={style.CardActions}>
-					<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
-						DETAILS
-					</Button>
-					<Button
-						size='Large'
-						variant='contained'
-						onClick={onHandleAddRemovePokedex}
-						color={isAddedPokedex ? "error" : "primary"}
-					>
-						{isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
-					</Button>
-				</CardActions>
+				<Grid container spacing={0} justifyContent='center' sx={style.Grid}>
+					<Grid item sm={12} sx={style.GridBox}>
+						<Box sx={style.Box}>
+							<img src={data.image || pokemonLogo} alt={data.name} style={style.Img}/>
+						</Box>
+					</Grid>
+					<Grid item sm={12} sx={style.GridContent}>
+						<div style={style.CardContent}>
+							<Typography gutterBottom variant='subtitle1' component='div' sx={style.CardContentTitle}>
+								{data.name && data.name.toUpperCase()}
+							</Typography>
+							<Typography variant='subtitle2' color='text.secondary'  sx={style.CardContentDescription} >
+								{data.description}
+							</Typography>
+						</div>
+					</Grid>
+					<Grid item sm={12} sx={style.GridActions}>
+						<CardActions sx={style.CardActions}>
+							<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
+								DETAILS
+							</Button>
+							<Button
+								size='Large'
+								variant='contained'
+								onClick={onHandleAddRemovePokedex}
+								color={isAddedPokedex ? "error" : "primary"}
+							>
+								{isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
+							</Button>
+						</CardActions>
+					</Grid>
+				</Grid>
 			</Card>
 		</Fade>
 	);

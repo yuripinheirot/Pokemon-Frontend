@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 export const style = {
 	SkeletonFeedback: {
 		pt: 0.5,
@@ -5,24 +7,48 @@ export const style = {
 		height: "100%",
 	},
 	Card: {
-		height: 450,
-		display: "flex",
-		flexDirection: "column",
+		height: 350,
 	},
-	Box: {
-		height: "50%",
+	Grid: {
+		height: "100%",
+	},
+	GridBox: {
+		height: "50%"
+	},
+	GridContent: {
+		height: "35%"
 	},
 	CardContent: {
-		height: "30%",
-		display: "flex",
-		flexDirection: "column",
+		height: "100%",
 	},
-	Description: {
+	CardContentTitle: {
+		paddingY: 0,
+		paddingX: 2,
+		whiteSpace: "nowrap",
+		overflow: "hidden",
+	},
+	CardContentDescription: {
+		paddingY: 0,
+		paddingX: 2,
 		overflowY: "auto",
-		height: "auto",
+		height: 87,
+	},
+	GridActions: {
+		height: "15%"
+	},
+	Box: {
+		display: "flex",
+		height: "100%",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	Img: {
+		objectFit: "contain",
+		width: "100%",
+		height: "80%",
 	},
 	CardActions: {
-		display: "flex",
-		height: "10%",
+		alignItems: "center",
+		justifyContent: "flex-end",
 	},
 };
