@@ -26,7 +26,7 @@ export default function Header() {
 			<AppBar position="static">
 				<Toolbar>
 					<Container>
-						<Typography variant="h5" component="div" sx={style.title} onClick={() => navigate("/")}>
+						<Typography variant="h5" component="div" sx={style.title} onClick={() => navigate("/?page=1")}>
 							POKEMON
 						</Typography>
 					</Container>

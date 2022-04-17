@@ -11,18 +11,11 @@ import SearchBar from "../components/SearchBar";
 const Main = () => {
 	const pages = 47;
 	const [data, setData] = useState([]);
-	const [dataFiltered, setDataFiltered] = useState([]);
-	const [pokedex, setPokedex] = useState([]);
-	const [isPending, startTransition] = useTransition();
 	const [params, setParams] = useSearchParams();
 	const currentPage = Number(params.get("page"));
 
 	const handleSearch = (value) => {
-		const filtered = data.filter((item) => item.name.includes(value));
-
-		startTransition(() => {
-			setDataFiltered(filtered);
-		});
+		// const filtered = data.filter((item) => item.name.includes(value));
 	};
 
 	const PaginationComponent = () => {
@@ -45,11 +38,7 @@ const Main = () => {
 
 	useEffect(() => {
 		MainStore.loadData(currentPage).then(setData);
-	}, []);
-
-	useEffect(() => {
-		setDataFiltered(data);
-	}, [data, setDataFiltered]);
+	}, [currentPage]);
 
 	return (
 		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
