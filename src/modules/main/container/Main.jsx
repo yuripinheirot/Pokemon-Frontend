@@ -1,24 +1,20 @@
 import React, { useEffect, useState, useTransition } from "react";
+import { useSearchParams, useParams } from "react-router-dom";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
 
+import { Pagination } from "@mui/material";
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
 
 const Main = () => {
+	const pages = 47;
 	const [data, setData] = useState([]);
 	const [dataFiltered, setDataFiltered] = useState([]);
 	const [pokedex, setPokedex] = useState([]);
 	const [isPending, startTransition] = useTransition();
-
-	useEffect(() => {
-		MainStore.loadData(1).then(setData);
-	}, []);
-
-	useEffect(() => {
-		setDataFiltered(data);
-	}, [data, setDataFiltered]);
+	const [params, setParams] = useSearchParams({ page: 1 });
 
 	const handleSearch = (value) => {
 		const filtered = data.filter((item) => item.name.includes(value));
@@ -28,10 +24,39 @@ const Main = () => {
 		});
 	};
 
+	const PaginationComponent = () => {
+		const onHandleChangePage = (event, page) => {
+			setParams({ page });
+			MainStore.loadData(page).then(setData);
+		};
+
+		const page = params.get("page");
+
+		return (
+			<Pagination
+				page={Number(page)}
+				count={pages}
+				boundaryCount={2}
+				sx={{ display: "flex", justifyContent: "center" }}
+				onChange={onHandleChangePage}
+			/>
+		);
+	};
+
+	useEffect(() => {
+		MainStore.loadData(params.page).then(setData);
+	}, []);
+
+	useEffect(() => {
+		setDataFiltered(data);
+	}, [data, setDataFiltered]);
+
 	return (
 		<Content id='ContentMain'>
-			<SearchBar handleSearch={handleSearch}/>
-			<GridAvailablePokemons data={data}/>
+			<SearchBar handleSearch={handleSearch} />
+			<PaginationComponent />
+			<GridAvailablePokemons data={data} />
+			<PaginationComponent />
 		</Content>
 	);
 };
