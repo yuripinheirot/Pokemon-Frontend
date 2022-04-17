@@ -9,9 +9,9 @@ class MainStore {
 
 	getFlavorText = async (pokemonId) => {
 		const { data } = await httpPokeApi.get(`/pokemon-species/${pokemonId}/`);
-		const flavorText = data.flavor_text_entries.find((item) => item.language.name === "en").flavor_text;
+		const { flavor_text } = data.flavor_text_entries.find((item) => item.language.name === "en");
 
-		return flavorText;
+		return flavor_text;
 	};
 
 	getAbility = async (ability) => {
@@ -51,7 +51,7 @@ class MainStore {
 
 			pokemonFormated.abilities[index] = {
 				name: ability.name,
-				effect: short_effect,
+				effect: short_effect || "",
 			};
 		});
 
