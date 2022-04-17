@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useTransition, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-// import MainStore from "../stores/main";
+import MainStore from "modules/main/stores/main";
 
 //material
 import Card from "@mui/material/Card";
@@ -11,62 +11,76 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-const ImgMediaCard = ({ data, detailsAbilities }) => {
+const ImgMediaCard = ({ pokemon }) => {
+	const [data, setData] = useState({});
+	const [isPeding, startTransition] = useTransition();
 	const navigate = useNavigate();
 
 	const Abilities = () => {
-		const abilities = data.abilities && data.abilities || [];
+		const abilities = (data && data.abilities) || [];
+
 		const sortedAbilities = abilities.sort((a, b) => {
-			if (a.ability.name > b.ability.name) return 1;
-			if (a.ability.name < b.ability.name) return -1;
+			if (a.name > b.name) return 1;
+			if (a.name < b.name) return -1;
 
 			return 0;
 		});
 
-		return <>
-			<Typography gutterBottom variant="h6" component="div">
-        ABILITIES:
-			</Typography>
-			<Typography sx={{  overflowY: "scroll", height: 240 }}>
-				{sortedAbilities.map((item, index) => {
-					const effect = detailsAbilities.find(effect => effect.name === item.ability.name);
+		return (
+			<>
+				<Typography gutterBottom variant='h6' component='div'>
+					ABILITIES:
+				</Typography>
+				<Typography sx={{ overflowY: "auto", height: 240 }} component="div">
+					{sortedAbilities.map((item, index) => {
+						const effect = abilities.find((effect) => effect.name === item.name);
 
-					return <Typography key={index} variant="subtitle2" component="p">
-						<strong>{item.ability.name}</strong> - {effect && effect.effectDetails && effect.effectDetails.effect}
-					</Typography>;
-				})}
-			</Typography>
-		</>;
+						return (
+							<Typography key={index} variant='subtitle2' component='p'>
+								<strong>{item.name}</strong> - {effect && effect.effect}
+							</Typography>
+						);
+					})}
+				</Typography>
+			</>
+		);
 	};
 
+	useEffect(() => {
+		startTransition(() => {
+			MainStore.pokemonDataBuilder(pokemon).then(setData);
+		});
+	}, []);
 
 	return (
 		<Card sx={{ display: "flex", flexDirection: "column", width: "40%", height: "80%" }}>
 			<CardMedia
-				component="img"
-				alt={data.name}
-				height="300"
-				image={data && data.sprites && data.sprites.front_default}
+				component='img'
+				alt={data && data.name}
+				height='300'
+				image={data && data.image}
 				sx={{ objectFit: "contain" }}
 			/>
 			<CardContent sx={{ height: "100%" }}>
-				<Typography gutterBottom variant="h4" component="div">
-					{data.name && data.name.toUpperCase()}
+				<Typography gutterBottom variant='h4' component='div'>
+					{data && data.name && data.name.toUpperCase()}
 				</Typography>
 				<Abilities />
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
-				<Button size="Large" variant="outlined" onClick={() => navigate(-1)}>BACK</Button>
-				<Button size="Large" variant="contained">ADD POKEDEX</Button>
+				<Button size='Large' variant='outlined' onClick={() => navigate(-1)}>
+					BACK
+				</Button>
+				<Button size='Large' variant='contained'>
+					ADD POKEDEX
+				</Button>
 			</CardActions>
 		</Card>
 	);
 };
 
 ImgMediaCard.propTypes = {
-	data: PropTypes.object,
-	flavorText: PropTypes.string,
-	detailsAbilities: PropTypes.array,
+	pokemon: PropTypes.string,
 };
 
 export default ImgMediaCard;

@@ -26,7 +26,7 @@ class MainStore {
 		if (!cachePokemons()) localStorage.setItem("pokemons", JSON.stringify({}));
 
 		const pokemonCached = cachePokemons()[pokemon];
-		if (pokemonCached) return;
+		if (pokemonCached) return pokemonCached;
 
 		pokemon = await this.getPokemonByName(pokemon);
 
