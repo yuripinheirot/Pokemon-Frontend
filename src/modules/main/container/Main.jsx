@@ -5,7 +5,7 @@ import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
 
-import GridAvailablePokemons from "../components/GridAvailablePokemons";
+import Grid from "../components/Grid";
 import SearchBar from "../components/SearchBar";
 
 //material
@@ -95,7 +95,7 @@ const Main = () => {
 		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
 			<SearchBar handleSearch={handleSearch} />
 			<PaginationComponent />
-			<GridAvailablePokemons data={data} />
+			<Grid data={data} />
 			<PaginationComponent />
 			<AlertDialog />
 		</Content>
