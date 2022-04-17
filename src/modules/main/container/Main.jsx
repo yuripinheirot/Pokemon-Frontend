@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useCallback, useEffect, useState, useTransition } from "react";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
