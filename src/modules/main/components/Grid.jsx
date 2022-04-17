@@ -21,11 +21,9 @@ const GridAvailablePokemons = ({ data,  handleAddRemovePokedex, pokedex }) => {
 	});
 
 	return (
-		<Container sx={{ width: "100%", height: "100%", padding: 2 }}>
-			<Grid container spacing={2} justifyContent='center'>
-				{renderCards}
-			</Grid>
-		</Container>
+		<Grid container spacing={2} justifyContent='center'>
+			{renderCards}
+		</Grid>
 	);
 };
 

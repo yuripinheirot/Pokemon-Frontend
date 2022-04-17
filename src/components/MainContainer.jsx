@@ -5,8 +5,9 @@ import { dark } from "constants/colors";
 import { heightHeader } from "components/Header";
 
 const DivMainContainer = styled.div`
-	height: calc(100vh - ${heightHeader}px);
+	min-height: calc(100vh - ${heightHeader}px);
 	background-color: ${dark.background.default};
+	display: flex;
 `;
 
 

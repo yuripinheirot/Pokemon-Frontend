@@ -5,7 +5,7 @@ import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
 
-import Grid from "../components/Grid";
+import GridCards from "../components/Grid";
 import SearchBar from "../components/SearchBar";
 
 //material
@@ -14,7 +14,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Pagination, Button } from "@mui/material";
+import { Pagination, Button, Grid } from "@mui/material";
 
 const Main = () => {
 	const pages = 47;
@@ -78,8 +78,8 @@ const Main = () => {
 				<DialogTitle id='alert-dialog-title'>Did you type the name correctly?</DialogTitle>
 				<DialogContent>
 					<DialogContentText id='alert-dialog-description'>
-							We didn't find any Pokemon with the term typed. Please make sure that you have entered the full name
-							correctly.
+						We didn't find any Pokemon with the term typed. Please make sure that you have entered the full name
+						correctly.
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
@@ -97,11 +97,21 @@ const Main = () => {
 	}, [currentPage]);
 
 	return (
-		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
-			<SearchBar handleSearch={handleSearch} />
-			<PaginationComponent />
-			<Grid data={data} pokedex={pokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
-			<PaginationComponent />
+		<Content id='ContentMain'>
+			<Grid container spacing={2} sx={{ marginY: 2 }}>
+				<Grid item sm='12'>
+					<SearchBar handleSearch={handleSearch} />
+				</Grid>
+				<Grid item sm='12'>
+					<PaginationComponent />
+				</Grid>
+				<Grid item sm='12' sx={{ minHeight: 2780 }}>
+					<GridCards data={data} pokedex={pokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
+				</Grid>
+				<Grid item sm='12'>
+					<PaginationComponent />
+				</Grid>
+			</Grid>
 			<AlertDialog />
 		</Content>
 	);

@@ -13,7 +13,7 @@ const SearchBar = ({ handleSearch }) => {
 	return (
 		<Box
 			component='form'
-			sx={{ paddingY: 1, marginX: 3, width: "96%", display: "flex", alignItems: "stretch", justifyContent: "center" }}
+			sx={{ width: "100%", display: "flex", alignItems: "stretch", justifyContent: "center" }}
 			noValidate
 			autoComplete='off'
 		>
