@@ -37,6 +37,8 @@ const Main = () => {
 	};
 
 	useEffect(() => {
+		if (!currentPage) setParams({ page: 1 });
+
 		MainStore.loadData(currentPage).then(setData);
 	}, [currentPage]);
 
