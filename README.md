@@ -3,6 +3,7 @@
 
 A simple project based in NodeJS & ReactJS.
 
+![](preview.gif)
 
 ## Authors
 
