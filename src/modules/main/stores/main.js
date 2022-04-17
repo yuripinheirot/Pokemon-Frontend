@@ -7,11 +7,12 @@ class MainStore {
 		return data;
 	};
 
-	getFlavorText = async (pokemonId) => {
-		const { data } = await httpPokeApi.get(`/pokemon-species/${pokemonId}/`);
-		const { flavor_text } = data.flavor_text_entries.find((item) => item.language.name === "en");
+	getFlavorText = async (url) => {
+		const id = url.split("/")[6];
+		const { data } = await httpPokeApi.get(`/pokemon-species/${id}/`);
+		const flavor = data.flavor_text_entries.find((item) => item.language.name === "en");
 
-		return flavor_text;
+		return flavor && flavor.flavor_text || "";
 	};
 
 	getAbility = async (ability) => {
@@ -33,7 +34,7 @@ class MainStore {
 			name: pokemon.name,
 			image: pokemon.sprites.front_default,
 			abilities: pokemon.abilities,
-			description: await this.getFlavorText(pokemon.name),
+			description: await this.getFlavorText(pokemon.species.url),
 		};
 
 		const abilitiesNames = pokemon.abilities.map((ability) => ability.ability.name);
@@ -47,11 +48,11 @@ class MainStore {
 		pokemonFormated.abilities = fetchedAbilities;
 
 		pokemonFormated.abilities.forEach((ability, index) => {
-			const short_effect = ability.effect_entries.find((effect) => effect.language.name === "en").short_effect;
+			const effect = ability.effect_entries.find((effect) => effect.language.name === "en");
 
 			pokemonFormated.abilities[index] = {
 				name: ability.name,
-				effect: short_effect || "",
+				effect: effect && effect.short_effect || "",
 			};
 		});
 
@@ -73,7 +74,6 @@ class MainStore {
 	};
 
 	loadData = async (page) => {
-		console.log(page);
 		const { results } = await this.getPokemonOffset(page);
 		return results.map((pokemon) => pokemon.name);
 	};

@@ -56,7 +56,7 @@ const ImgMediaCard = ({ data, detailsAbilities }) => {
 				<Abilities />
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "end", alignItems: "stretch" }}>
-				<Button size="Large" variant="outlined" onClick={() => navigate("/")}>BACK</Button>
+				<Button size="Large" variant="outlined" onClick={() => navigate(-1)}>BACK</Button>
 				<Button size="Large" variant="contained">ADD POKEDEX</Button>
 			</CardActions>
 		</Card>
