@@ -96,7 +96,7 @@ const Main = () => {
 
 		MainStore.loadData(currentPage).then(setData);
 		PokedexStore.fecthPokedex().then(setPokedex);
-	}, [currentPage]);
+	}, []);
 
 	return (
 		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
