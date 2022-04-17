@@ -52,7 +52,7 @@ const Main = () => {
 	}, [data, setDataFiltered]);
 
 	return (
-		<Content id='ContentMain'>
+		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
 			<SearchBar handleSearch={handleSearch} />
 			<PaginationComponent />
 			<GridAvailablePokemons data={data} />
