@@ -47,7 +47,7 @@ class MainStore {
 		pokemonFormated.abilities = fetchedAbilities;
 
 		pokemonFormated.abilities.forEach((ability, index) => {
-			const { short_effect } = ability.effect_entries.find((effect) => effect.language.name === "en");
+			const short_effect = ability.effect_entries.find((effect) => effect.language.name === "en").short_effect;
 
 			pokemonFormated.abilities[index] = {
 				name: ability.name,
