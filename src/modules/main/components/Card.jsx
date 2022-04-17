@@ -2,6 +2,7 @@ import React, { useEffect, useState, useTransition, useLayoutEffect } from "reac
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import MainStore from "../stores/main";
+import pokemonLogo from "assets/pokemon.png";
 
 //material
 import Card from "@mui/material/Card";
@@ -56,7 +57,7 @@ const ImgMediaCard = ({ pokemon, handleAddPokedex }) => {
 					component='img'
 					alt={pokemon + ".image"}
 					height='100%'
-					image={data.image || "https://flyclipart.com/thumb2/ball-icon-168685.png"}
+					image={data.image || pokemonLogo}
 					sx={{ objectFit: "unset" }}
 				/>
 			</Box>
