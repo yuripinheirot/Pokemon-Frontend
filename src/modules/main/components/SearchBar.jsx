@@ -6,8 +6,8 @@ import { Box, TextField, Button } from "@mui/material";
 const SearchBar = ({ handleSearch }) => {
 	const [search, setSearch] = useState("");
 
-	const handleOnChangeSearch = (e) => {
-		handleSearch(e.target.value);
+	const handleOnChangeSearch = () => {
+		handleSearch(search);
 	};
 
 	return (

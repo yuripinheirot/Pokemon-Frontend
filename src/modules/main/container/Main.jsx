@@ -1,25 +1,35 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState, useTransition } from "react";
 import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
 
-import { Pagination } from "@mui/material";
 import GridAvailablePokemons from "../components/GridAvailablePokemons";
 import SearchBar from "../components/SearchBar";
+
+//material
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Pagination, Button } from "@mui/material";
 
 const Main = () => {
 	const pages = 47;
 	const [data, setData] = useState([]);
 	const [params, setParams] = useSearchParams();
+	const [openDialog, setOpenDialog] = useState(false);
 	const currentPage = Number(params.get("page"));
+	const navigate = useNavigate();
 
 	const handleSearch = async (pokemonToSearch) => {
 		const pokemon = await MainStore.pokemonDataBuilder(pokemonToSearch);
 
-		if (!pokemon) {
-			console.log("nao achou");
-		}
+		if (!pokemon) return setOpenDialog(true);
+
+		navigate(`/details/${pokemonToSearch}`);
 	};
 
 	const PaginationComponent = () => {
@@ -40,6 +50,41 @@ const Main = () => {
 		);
 	};
 
+	const AlertDialog = () => {
+		const handleClickOpen = () => {
+			setOpenDialog(true);
+		};
+
+		const handleClose = () => {
+			setOpenDialog(false);
+		};
+
+		return (
+			<div>
+				<Button variant='outlined' onClick={handleClickOpen}>
+					Open alert dialog
+				</Button>
+				<Dialog
+					open={openDialog}
+					onClose={handleClose}
+					aria-labelledby='alert-dialog-title'
+					aria-describedby='alert-dialog-description'
+				>
+					<DialogTitle id='alert-dialog-title'>Did you type the name correctly?</DialogTitle>
+					<DialogContent>
+						<DialogContentText id='alert-dialog-description'>
+							We didn't find any Pokemon with the term typed. Please make sure that you have entered the full name
+							correctly.
+						</DialogContentText>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={handleClose}>Close</Button>
+					</DialogActions>
+				</Dialog>
+			</div>
+		);
+	};
+
 	useEffect(() => {
 		if (!currentPage) setParams({ page: 1 });
 
@@ -52,6 +97,7 @@ const Main = () => {
 			<PaginationComponent />
 			<GridAvailablePokemons data={data} />
 			<PaginationComponent />
+			<AlertDialog />
 		</Content>
 	);
 };

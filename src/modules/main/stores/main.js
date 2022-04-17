@@ -1,12 +1,16 @@
 import { httpPokeApi } from "utils/httpClient";
 
 class MainStore {
-	getPokemonByName = async (name) => {
-		if (!name) return;
+	getPokemonByName = async (pokemon) => {
+		try {
+			if (!pokemon) return;
 
-		const { data } = await httpPokeApi.get(`/pokemon/${name}`);
+			const { data } = await httpPokeApi.get(`/pokemon/${pokemon}`);
 
-		return data;
+			return data;
+		} catch (error) {
+			return null;
+		}
 	};
 
 	getFlavorText = async (url) => {
