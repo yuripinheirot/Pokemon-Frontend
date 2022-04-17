@@ -105,7 +105,7 @@ const Main = () => {
 				<Grid item sm={12}>
 					<PaginationComponent />
 				</Grid>
-				<Grid item sm={12} sx={{ minHeight: 2780 }}>
+				<Grid item sm={12} sx={{ minHeight: 2180 }}>
 					<GridCards data={data} pokedex={pokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
 				</Grid>
 				<Grid item sm={12}>
