@@ -33,6 +33,16 @@ const Main = () => {
 		navigate(`/details/${pokemonToSearch}`);
 	};
 
+	const handleAddRemovePokedex = (pokemon, isAddedPokedex) => {
+		if (isAddedPokedex) {
+			PokedexStore.removePokedex(pokemon);
+		} else {
+			PokedexStore.addPokedex(pokemon);
+		}
+
+		PokedexStore.fecthPokedex().then(setPokedex);
+	};
+
 	const PaginationComponent = () => {
 		const onHandleChangePage = (event, page) => {
 			setParams({ page });
@@ -61,28 +71,23 @@ const Main = () => {
 		};
 
 		return (
-			<div>
-				<Button variant='outlined' onClick={handleClickOpen}>
-					Open alert dialog
-				</Button>
-				<Dialog
-					open={openDialog}
-					onClose={handleClose}
-					aria-labelledby='alert-dialog-title'
-					aria-describedby='alert-dialog-description'
-				>
-					<DialogTitle id='alert-dialog-title'>Did you type the name correctly?</DialogTitle>
-					<DialogContent>
-						<DialogContentText id='alert-dialog-description'>
+			<Dialog
+				open={openDialog}
+				onClose={handleClose}
+				aria-labelledby='alert-dialog-title'
+				aria-describedby='alert-dialog-description'
+			>
+				<DialogTitle id='alert-dialog-title'>Did you type the name correctly?</DialogTitle>
+				<DialogContent>
+					<DialogContentText id='alert-dialog-description'>
 							We didn't find any Pokemon with the term typed. Please make sure that you have entered the full name
 							correctly.
-						</DialogContentText>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={handleClose}>Close</Button>
-					</DialogActions>
-				</Dialog>
-			</div>
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose}>Close</Button>
+				</DialogActions>
+			</Dialog>
 		);
 	};
 
@@ -97,7 +102,7 @@ const Main = () => {
 		<Content id='ContentMain' sx={{ paddingBottom: 2 }}>
 			<SearchBar handleSearch={handleSearch} />
 			<PaginationComponent />
-			<Grid data={data} pokedex={pokedex} />
+			<Grid data={data} pokedex={pokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
 			<PaginationComponent />
 			<AlertDialog />
 		</Content>

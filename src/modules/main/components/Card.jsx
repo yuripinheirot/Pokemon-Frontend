@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
-const ImgMediaCard = ({ pokemon, handleAddPokedex, isAddedPokedex }) => {
+const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 	const [data, setData] = useState({});
 	const [isPeding, startTransition] = useTransition();
 	const navigate = useNavigate();
@@ -30,8 +30,8 @@ const ImgMediaCard = ({ pokemon, handleAddPokedex, isAddedPokedex }) => {
 		}
 	};
 
-	const onHandleAddPokedex = () => {
-		handleAddPokedex(pokemon);
+	const onHandleAddRemovePokedex = () => {
+		handleAddRemovePokedex(pokemon, isAddedPokedex);
 	};
 
 	const SkeletonFeedback = () => {
@@ -69,11 +69,16 @@ const ImgMediaCard = ({ pokemon, handleAddPokedex, isAddedPokedex }) => {
 					{data.description}
 				</Typography>
 			</CardContent>
-			<CardActions sx={{ display: "flex",   height: "10%" }}>
+			<CardActions sx={{ display: "flex", height: "10%" }}>
 				<Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
 					DETAILS
 				</Button>
-				<Button size='Large' variant='contained' onClick={onHandleAddPokedex} color={isAddedPokedex ? "error" : "primary"}>
+				<Button
+					size='Large'
+					variant='contained'
+					onClick={onHandleAddRemovePokedex}
+					color={isAddedPokedex ? "error" : "primary"}
+				>
 					{isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
 				</Button>
 			</CardActions>
@@ -83,7 +88,7 @@ const ImgMediaCard = ({ pokemon, handleAddPokedex, isAddedPokedex }) => {
 
 ImgMediaCard.propTypes = {
 	pokemon: PropTypes.string,
-	handleAddPokedex: PropTypes.func,
+	handleAddRemovePokedex: PropTypes.func,
 	isAddedPokedex: PropTypes.bool,
 };
 

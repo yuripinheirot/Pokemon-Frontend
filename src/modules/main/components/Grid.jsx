@@ -5,7 +5,7 @@ import Card from "./Card";
 
 import { Grid, Container } from "@mui/material";
 
-const GridAvailablePokemons = ({ data, handleAddPokedex, pokedex }) => {
+const GridAvailablePokemons = ({ data,  handleAddRemovePokedex, pokedex }) => {
 
 	const renderCards = data.map((pokemon) => {
 		return (
@@ -13,7 +13,7 @@ const GridAvailablePokemons = ({ data, handleAddPokedex, pokedex }) => {
 				<Card
 					key={pokemon}
 					pokemon={pokemon}
-					handleAddPokedex={handleAddPokedex}
+					handleAddRemovePokedex={handleAddRemovePokedex}
 					isAddedPokedex={pokedex.includes(pokemon)}
 				/>
 			</Grid>
@@ -31,7 +31,7 @@ const GridAvailablePokemons = ({ data, handleAddPokedex, pokedex }) => {
 
 GridAvailablePokemons.propTypes = {
 	data: PropTypes.array,
-	handleAddPokedex: PropTypes.func,
+	handleAddRemovePokedex: PropTypes.func,
 	pokedex: PropTypes.array,
 };
 
