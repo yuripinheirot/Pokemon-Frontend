@@ -1,4 +1,4 @@
-import React, { useState, useTransition, useEffect } from "react";
+import React, { useTransition, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
+import Grid from "@mui/material/Grid";
 
 const ImgMediaCard = ({ data, isAddedPokedex, handleAddRemovePokedex }) => {
 	const [isPeding, startTransition] = useTransition();
@@ -57,7 +58,7 @@ const ImgMediaCard = ({ data, isAddedPokedex, handleAddRemovePokedex }) => {
 	return isPeding && !data.name ? (
 		<SkeletonFeedback />
 	) : (
-		<Card sx={{ display: "flex", flexDirection: "column", width: "40%", height: "80%" }}>
+		<Card sx={{ display: "flex", flexDirection: "column", width: "40%", height: "80%", padding: 2 }}>
 			<CardMedia
 				component='img'
 				alt={data && data.name}

@@ -32,8 +32,8 @@ const Details = () => {
 	}, []);
 
 	return (
-		<Container sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
-			<Card data={data} isAddedPokedex={isAddedPokedex}  handleAddRemovePokedex={handleAddRemovePokedex}/>
+		<Container sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "auto" }}>
+			<Card data={data} isAddedPokedex={isAddedPokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
 		</Container>
 	);
 };
