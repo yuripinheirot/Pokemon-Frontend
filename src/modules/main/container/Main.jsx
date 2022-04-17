@@ -33,11 +33,11 @@ const Main = () => {
 		navigate(`/details/${pokemonToSearch}`);
 	};
 
-	const handleAddRemovePokedex = (pokemon, isAddedPokedex) => {
+	const handleAddRemovePokedex = async (pokemon, isAddedPokedex) => {
 		if (isAddedPokedex) {
-			PokedexStore.removePokedex(pokemon);
+			await PokedexStore.removePokedex(pokemon);
 		} else {
-			PokedexStore.addPokedex(pokemon);
+			await PokedexStore.addPokedex(pokemon);
 		}
 
 		PokedexStore.fecthPokedex().then(setPokedex);
