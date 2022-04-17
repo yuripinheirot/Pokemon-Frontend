@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useTransition } from "react";
-import { useSearchParams, useParams } from "react-router-dom";
+import { useSearchParams, useParams, useNavigate } from "react-router-dom";
 import Content from "components/Content";
 import MainStore from "modules/main/stores/main";
 import PokedexStore from "modules/main/stores/pokedex";
@@ -14,8 +14,12 @@ const Main = () => {
 	const [params, setParams] = useSearchParams();
 	const currentPage = Number(params.get("page"));
 
-	const handleSearch = (value) => {
-		// const filtered = data.filter((item) => item.name.includes(value));
+	const handleSearch = async (pokemonToSearch) => {
+		const pokemon = await MainStore.pokemonDataBuilder(pokemonToSearch);
+
+		if (!pokemon) {
+			console.log("nao achou");
+		}
 	};
 
 	const PaginationComponent = () => {

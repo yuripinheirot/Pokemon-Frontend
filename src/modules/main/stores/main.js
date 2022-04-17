@@ -2,6 +2,8 @@ import { httpPokeApi } from "utils/httpClient";
 
 class MainStore {
 	getPokemonByName = async (name) => {
+		if (!name) return;
+
 		const { data } = await httpPokeApi.get(`/pokemon/${name}`);
 
 		return data;
@@ -12,7 +14,7 @@ class MainStore {
 		const { data } = await httpPokeApi.get(`/pokemon-species/${id}/`);
 		const flavor = data.flavor_text_entries.find((item) => item.language.name === "en");
 
-		return flavor && flavor.flavor_text || "";
+		return (flavor && flavor.flavor_text) || "";
 	};
 
 	getAbility = async (ability) => {
@@ -29,6 +31,8 @@ class MainStore {
 		if (pokemonCached) return pokemonCached;
 
 		pokemon = await this.getPokemonByName(pokemon);
+
+		if (!pokemon) return null;
 
 		const pokemonFormated = {
 			name: pokemon.name,
@@ -52,7 +56,7 @@ class MainStore {
 
 			pokemonFormated.abilities[index] = {
 				name: ability.name,
-				effect: effect && effect.short_effect || "",
+				effect: (effect && effect.short_effect) || "",
 			};
 		});
 
