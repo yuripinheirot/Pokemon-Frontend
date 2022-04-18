@@ -36,11 +36,57 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
     handleAddRemovePokedex(pokemon, isAddedPokedex);
   };
 
-  const SkeletonFeedback = () => {
+  // eslint-disable-next-line react/prop-types
+  const SkeletonFeedback = ({ children }) => {
     return (
       <Box sx={style.SkeletonFeedback}>
-        <Skeleton width='100%' height={430} />
+        <Skeleton>{children}</Skeleton>
       </Box>
+    );
+  };
+
+  const renderCard = () => {
+    return (
+      <Fade
+        in={!loading}
+        style={{ transitionDelay: loading ? "500ms" : "0ms" }}
+        {...(!loading ? { timeout: 1000 } : {})}
+      >
+        <Card sx={style.Card}>
+          <Grid container spacing={0} justifyContent='center' sx={style.Grid}>
+            <Grid item sm={12} sx={style.GridBox}>
+              <Box sx={style.Box}>
+                <img src={data.image || pokemonLogo} alt={data.name} style={style.Img} />
+              </Box>
+            </Grid>
+            <Grid item sm={12} sx={style.GridContent}>
+              <div style={style.CardContent}>
+                <Typography gutterBottom variant='subtitle1' component='div' sx={style.CardContentTitle}>
+                  {data.name && data.name.toUpperCase()}
+                </Typography>
+                <Typography variant='subtitle2' color='text.secondary' sx={style.CardContentDescription}>
+                  {data.description}
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item sm={12} sx={style.GridActions}>
+              <CardActions sx={style.CardActions}>
+                <Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
+                  DETAILS
+                </Button>
+                <Button
+                  size='Large'
+                  variant='contained'
+                  onClick={onHandleAddRemovePokedex}
+                  color={isAddedPokedex ? "error" : "primary"}
+                >
+                  {isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
+                </Button>
+              </CardActions>
+            </Grid>
+          </Grid>
+        </Card>
+      </Fade>
     );
   };
 
@@ -50,46 +96,7 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
     });
   }, []);
 
-  return loading ? (
-    <SkeletonFeedback />
-  ) : (
-    <Fade in={!loading} style={{ transitionDelay: loading ? "500ms" : "0ms" }} {...(!loading ? { timeout: 1000 } : {})}>
-      <Card sx={style.Card}>
-        <Grid container spacing={0} justifyContent='center' sx={style.Grid}>
-          <Grid item sm={12} sx={style.GridBox}>
-            <Box sx={style.Box}>
-              <img src={data.image || pokemonLogo} alt={data.name} style={style.Img} />
-            </Box>
-          </Grid>
-          <Grid item sm={12} sx={style.GridContent}>
-            <div style={style.CardContent}>
-              <Typography gutterBottom variant='subtitle1' component='div' sx={style.CardContentTitle}>
-                {data.name && data.name.toUpperCase()}
-              </Typography>
-              <Typography variant='subtitle2' color='text.secondary' sx={style.CardContentDescription}>
-                {data.description}
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item sm={12} sx={style.GridActions}>
-            <CardActions sx={style.CardActions}>
-              <Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
-                DETAILS
-              </Button>
-              <Button
-                size='Large'
-                variant='contained'
-                onClick={onHandleAddRemovePokedex}
-                color={isAddedPokedex ? "error" : "primary"}
-              >
-                {isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
-              </Button>
-            </CardActions>
-          </Grid>
-        </Grid>
-      </Card>
-    </Fade>
-  );
+  return loading ? <SkeletonFeedback>{renderCard()}</SkeletonFeedback> : renderCard();
 };
 
 ImgMediaCard.propTypes = {
