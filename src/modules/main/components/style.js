@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 export const style = {
 	SkeletonFeedback: {
 		pt: 0.5,
