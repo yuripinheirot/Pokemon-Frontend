@@ -38,11 +38,7 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
 
   // eslint-disable-next-line react/prop-types
   const SkeletonFeedback = ({ children }) => {
-    return (
-      <Box sx={style.SkeletonFeedback}>
-        <Skeleton>{children}</Skeleton>
-      </Box>
-    );
+    return <Skeleton>{children}</Skeleton>;
   };
 
   const renderCard = () => {
