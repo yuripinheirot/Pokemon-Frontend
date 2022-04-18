@@ -19,7 +19,7 @@ class PokedexStore {
 
   removePokedex = async (pokemon) => {
     const { data } = await httpPrisma.delete("/pokedex", {
-      data: {pokemon},
+      data: { pokemon },
     });
 
     return data;

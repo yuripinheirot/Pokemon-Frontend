@@ -8,34 +8,34 @@ import Card from "../components/Card";
 import { Container } from "@mui/material";
 
 const Details = () => {
-	const { id } = useParams();
-	const [data, setData] = useState({});
-	const [isAddedPokedex, setIsAddedPokedex] = useState(false);
+  const { id } = useParams();
+  const [data, setData] = useState({});
+  const [isAddedPokedex, setIsAddedPokedex] = useState(false);
 
-	const loadData = () => {
-		MainStore.pokemonDataBuilder(id).then(setData);
-		PokedexStore.fecthPokedex().then((res) => {
-			setIsAddedPokedex(res.includes(id));
-		});
-	};
+  const loadData = () => {
+    MainStore.pokemonDataBuilder(id).then(setData);
+    PokedexStore.fecthPokedex().then((res) => {
+      setIsAddedPokedex(res.includes(id));
+    });
+  };
 
-	const handleAddRemovePokedex = () => {
-		if (isAddedPokedex) {
-			PokedexStore.removePokedex(data.name).then(() => setIsAddedPokedex(false));
-		} else {
-			PokedexStore.addPokedex(data.name).then(() => setIsAddedPokedex(true));
-		}
-	};
+  const handleAddRemovePokedex = () => {
+    if (isAddedPokedex) {
+      PokedexStore.removePokedex(data.name).then(() => setIsAddedPokedex(false));
+    } else {
+      PokedexStore.addPokedex(data.name).then(() => setIsAddedPokedex(true));
+    }
+  };
 
-	useEffect(() => {
-		loadData();
-	}, []);
+  useEffect(() => {
+    loadData();
+  }, []);
 
-	return (
-		<Container sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "auto" }}>
-			<Card data={data} isAddedPokedex={isAddedPokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
-		</Container>
-	);
+  return (
+    <Container sx={{ display: "flex", alignItems: "center", justifyContent: "center", height: "auto" }}>
+      <Card data={data} isAddedPokedex={isAddedPokedex} handleAddRemovePokedex={handleAddRemovePokedex} />
+    </Container>
+  );
 };
 
 export default Details;

@@ -11,10 +11,10 @@ export const style = {
     height: "100%",
   },
   GridBox: {
-    height: "50%"
+    height: "50%",
   },
   GridContent: {
-    height: "35%"
+    height: "35%",
   },
   CardContent: {
     height: "100%",
@@ -32,7 +32,7 @@ export const style = {
     height: 87,
   },
   GridActions: {
-    height: "15%"
+    height: "15%",
   },
   Box: {
     display: "flex",
