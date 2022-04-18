@@ -2,11 +2,11 @@ import axios from "axios";
 import { apiPokemon, apiPrisma } from "config";
 
 export const httpPokeApi = axios.create({
-	baseURL: apiPokemon,
+  baseURL: apiPokemon,
 });
 
 export const httpPrisma = axios.create({
-	baseURL: apiPrisma,
+  baseURL: apiPrisma,
 });
 
 export default { httpPokeApi, httpPrisma };

@@ -1,27 +1,27 @@
 import { httpPrisma } from "utils/httpClient";
 
 class PokedexStore {
-	addPokedex = async (pokemon) => {
-		const { data } = await httpPrisma.post("/pokedex", {
-			pokemon,
-		});
+  addPokedex = async (pokemon) => {
+    const { data } = await httpPrisma.post("/pokedex", {
+      pokemon,
+    });
 
-		return data;
-	};
+    return data;
+  };
 
-	getPokedex = async () => {
-		const {
-			data: { data },
-		} = await httpPrisma.get("/pokedex");
+  getPokedex = async () => {
+    const {
+      data: { data },
+    } = await httpPrisma.get("/pokedex");
 
-		return data;
-	};
+    return data;
+  };
 
-	removePokedex = async (pokemon) => {
-		const { data } = await httpPrisma.delete(`/pokedex/${pokemon}`);
+  removePokedex = async (pokemon) => {
+    const { data } = await httpPrisma.delete(`/pokedex/${pokemon}`);
 
-		return data;
-	};
+    return data;
+  };
 }
 
 export default new PokedexStore();
