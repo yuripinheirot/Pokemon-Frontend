@@ -40,7 +40,7 @@ class MainStore {
 
     const pokemonFormated = {
       name: pokemon.name,
-      image: pokemon.sprites.front_default,
+      image: pokemon.sprites && pokemon.sprites.front_default || null,
       abilities: pokemon.abilities,
       description: await this.getFlavorText(pokemon.species.url),
     };
