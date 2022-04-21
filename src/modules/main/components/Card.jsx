@@ -52,16 +52,16 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
           <Grid container spacing={0} justifyContent='center' sx={style.Grid}>
             <Grid item sm={12} sx={style.GridBox}>
               <Box sx={style.Box}>
-                <img src={data.image || pokemonLogo} alt={data.name} style={style.Img} />
+                <img src={(data && data.image) || pokemonLogo} alt={data.name} style={style.Img} />
               </Box>
             </Grid>
             <Grid item sm={12} sx={style.GridContent}>
               <div style={style.CardContent}>
                 <Typography gutterBottom variant='subtitle1' component='div' sx={style.CardContentTitle}>
-                  {data.name && data.name.toUpperCase()}
+                  {data && data.name && data.name.toUpperCase()}
                 </Typography>
                 <Typography variant='subtitle2' color='text.secondary' sx={style.CardContentDescription}>
-                  {data.description}
+                  {data && data.description}
                 </Typography>
               </div>
             </Grid>
