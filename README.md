@@ -20,7 +20,7 @@ A simple project based in NodeJS & ReactJS.
 
 ## Installation
 
-Before installing the front end, you must already have the backend running. See more here: https://github.com/yuripinheirot/pokemon-project-back
+Before installing the front end, you must already have the backend running. See more here: https://github.com/yuripinheirot/Pokemon-Backend
 
 Installation
 
