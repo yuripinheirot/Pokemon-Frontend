@@ -47,22 +47,15 @@ class MainStore {
 
     const abilitiesNames = pokemon.abilities.map((ability) => ability.ability.name);
 
-    abilitiesNames.forEach((ability, index) => {
-      pokemonFormated.abilities[index] = this.getAbility(ability);
-    });
-
-    const fetchedAbilities = await Promise.all(pokemonFormated.abilities);
-
-    pokemonFormated.abilities = fetchedAbilities;
-
-    pokemonFormated.abilities.forEach((ability, index) => {
+    for (const [index, name] of abilitiesNames.entries()) {
+      const ability = await this.getAbility(name);
       const effect = ability.effect_entries.find((effect) => effect.language.name === "en");
 
       pokemonFormated.abilities[index] = {
         name: ability.name,
         effect: (effect && effect.short_effect) || "",
       };
-    });
+    }
 
     const newStorage = {
       ...cachePokemons(),
