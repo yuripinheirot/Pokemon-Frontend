@@ -13,12 +13,12 @@ class MainStore {
     }
   };
 
-  getFlavorText = async (url) => {
+  getDescriptionPokemon = async (url) => {
     const id = url.split("/")[6];
     const { data } = await httpPokeApi.get(`/pokemon-species/${id}/`);
-    const flavor = data.flavor_text_entries.find((item) => item.language.name === "en");
+    const description = data.flavor_text_entries.find((item) => item.language.name === "en");
 
-    return (flavor && flavor.flavor_text) || "";
+    return (description && description.flavor_text) || "";
   };
 
   getAbility = async (ability) => {
@@ -28,10 +28,10 @@ class MainStore {
   };
 
   pokemonDataBuilder = async (pokemon) => {
-    const cachePokemons = () => JSON.parse(localStorage.getItem("pokemons"));
-    if (!cachePokemons()) localStorage.setItem("pokemons", JSON.stringify({}));
+    const cachedPokemons = () => JSON.parse(localStorage.getItem("pokemons"));
+    if (!cachedPokemons()) localStorage.setItem("pokemons", JSON.stringify({}));
 
-    const pokemonCached = cachePokemons()[pokemon];
+    const pokemonCached = cachedPokemons()[pokemon];
     if (pokemonCached) return pokemonCached;
 
     pokemon = await this.getPokemonByName(pokemon);
@@ -42,7 +42,7 @@ class MainStore {
       name: pokemon.name,
       image: pokemon.sprites && pokemon.sprites.front_default || null,
       abilities: pokemon.abilities,
-      description: await this.getFlavorText(pokemon.species.url),
+      description: await this.getDescriptionPokemon(pokemon.species.url),
     };
 
     const abilitiesNames = pokemon.abilities.map((ability) => ability.ability.name);
@@ -58,7 +58,7 @@ class MainStore {
     }
 
     const newStorage = {
-      ...cachePokemons(),
+      ...cachedPokemons(),
       [pokemonFormated.name]: pokemonFormated,
     };
 
