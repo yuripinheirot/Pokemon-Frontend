@@ -67,17 +67,24 @@ const ImgMediaCard = ({ pokemon, handleAddRemovePokedex, isAddedPokedex }) => {
             </Grid>
             <Grid item sm={12} sx={style.GridActions}>
               <CardActions sx={style.CardActions}>
-                <Button size='Large' variant='outlined' onClick={() => navigate(`/details/${pokemon}`)}>
-                  DETAILS
-                </Button>
-                <Button
-                  size='Large'
-                  variant='contained'
-                  onClick={onHandleAddRemovePokedex}
-                  color={isAddedPokedex ? "error" : "primary"}
-                >
-                  {isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
-                </Button>
+                <Grid container columnSpacing={1} justifyContent='center'>
+                  <Grid item sm={5}>
+                    <Button size='Large' variant='outlined' fullWidth onClick={() => navigate(`/details/${pokemon}`)}>
+                      DETAILS
+                    </Button>
+                  </Grid>
+                  <Grid item sm={7}>
+                    <Button
+                      size='Large'
+                      variant='contained'
+                      onClick={onHandleAddRemovePokedex}
+                      fullWidth
+                      color={isAddedPokedex ? "error" : "primary"}
+                    >
+                      {isAddedPokedex ? "RMV POKEDEX" : "ADD POKEDEX"}
+                    </Button>
+                  </Grid>
+                </Grid>
               </CardActions>
             </Grid>
           </Grid>
