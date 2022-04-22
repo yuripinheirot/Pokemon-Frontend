@@ -90,7 +90,8 @@ const Main = () => {
   };
 
   useEffect(() => {
-    MainStore.loadData(currentPage || 1).then(setData);
+    if (!currentPage) navigate("/?page=1");
+    MainStore.loadData(currentPage).then(setData);
     PokedexStore.fecthPokedex().then(setPokedex);
   }, [currentPage]);
 
