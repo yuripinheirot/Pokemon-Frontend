@@ -46,12 +46,14 @@ export const PokeCard = ({ data }: Props) => {
           item
           xs={12}
         >
-          <Typography
-            textAlign='center'
-            sx={descriptionStyle}
-          >
-            {data.description}
-          </Typography>
+          <Box sx={boxDescriptionStyle}>
+            <Typography
+              textAlign='center'
+              sx={descriptionStyle}
+            >
+              {data.description}
+            </Typography>
+          </Box>
         </Grid>
         <Grid
           item
@@ -82,15 +84,22 @@ export const PokeCard = ({ data }: Props) => {
 
 const paperCardStyle: SxProps = {
   padding: '20px',
-  width: 160,
+  width: 200,
 }
 
 const titleStyle: SxProps = {
   textTransform: 'capitalize',
 }
+
+const boxDescriptionStyle: SxProps = {
+  height: 70,
+}
 const descriptionStyle: SxProps = {
   fontSize: 12,
   textAlign: 'justify',
+  overflowY: 'auto',
+  height: '100%',
+  paddingX: '10px',
 }
 
 const boxButtonStyle: SxProps = {
