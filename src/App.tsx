@@ -1,29 +1,38 @@
 import { Header } from './components/Header'
 import { Box, SxProps } from '@mui/material'
 import { ThemeProviderStyle } from './components/ThemeProvider'
+import { Routes, BrowserRouter, Route } from 'react-router-dom'
+import { MainRoutes } from './pages/public/main/Routes'
 
 const App = () => {
   return (
     <ThemeProviderStyle>
-      <Box
-        className='App'
-        sx={appStyle}
-      >
-        <Header />
+      <BrowserRouter>
         <Box
-          id='AppViewer'
-          sx={appViewerStyle}
+          className='App'
+          sx={appStyle}
         >
-          Main
+          <Header />
+          <Box
+            id='AppViewer'
+            sx={appViewerStyle}
+          >
+            <Routes>
+              <Route
+                path='/*'
+                element={<MainRoutes />}
+              />
+            </Routes>
+          </Box>
         </Box>
-      </Box>
+      </BrowserRouter>
     </ThemeProviderStyle>
   )
 }
 
 const appStyle: SxProps = {
   bgcolor: 'background.default',
-  height: '100vh',
+  minHeight: '100vh',
 }
 const appViewerStyle: SxProps = {
   overflow: 'auto',
