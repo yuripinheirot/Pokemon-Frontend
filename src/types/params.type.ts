@@ -1,1 +1,1 @@
-export type queryPaginatedParams = { limit: string; offset: string }
+export type queryPaginatedParams = { limit: number; offset: number }

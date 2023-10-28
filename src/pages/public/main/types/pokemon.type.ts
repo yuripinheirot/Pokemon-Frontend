@@ -15,6 +15,7 @@ export type PokemonType = {
 }
 
 export type PokemonOffsetType = {
+  count: number
   next: string
   previous: string
   results: PokemonType[]
