@@ -10,6 +10,7 @@ export const MainContainer = () => {
   const [pokemonPaginated, setPokemonPaginated] = useState<PokemonOffsetType>()
   const [page, setPage] = useState<number>(1)
   const [searchParams, setSearchParams] = useSearchParams()
+
   const limit = 12
 
   const handleChangePage = (
@@ -46,6 +47,7 @@ export const MainContainer = () => {
 
   useEffect(() => {
     const page = searchParams.get('page') || 1
+    setSearchParams({ page: String(page) })
     setPage(+page)
   }, [searchParams, setSearchParams])
 
