@@ -60,14 +60,14 @@ const PokeCardSkeleton = () => {
           <Box sx={boxButtonStyle}>
             <Skeleton
               variant='rounded'
-              width={80}
+              width={90}
               height={40}
               animation={animation}
             />
 
             <Skeleton
               variant='rounded'
-              width={80}
+              width={90}
               height={40}
               animation={animation}
             />
@@ -83,7 +83,7 @@ export const PokeGridSkeleton = ({ count }: { count: number }) => {
     <Box id='PokeGrid'>
       <Grid
         container
-        gap={1}
+        gap={3}
         alignItems={'center'}
         justifyContent={'center'}
       >

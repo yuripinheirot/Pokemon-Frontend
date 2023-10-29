@@ -64,6 +64,7 @@ export const PokeCard = ({ data }: Props) => {
               color='primary'
               variant='outlined'
               size='small'
+              fullWidth
             >
               Details
             </Button>
@@ -71,7 +72,8 @@ export const PokeCard = ({ data }: Props) => {
             <Button
               color='primary'
               variant='contained'
-              size='small'
+              size='medium'
+              fullWidth
             >
               ADD
             </Button>
@@ -106,4 +108,5 @@ const boxButtonStyle: SxProps = {
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: 2,
+  gap: 2,
 }

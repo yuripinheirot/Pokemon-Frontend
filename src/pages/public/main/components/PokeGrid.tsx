@@ -1,5 +1,5 @@
 import { PokemonOffsetType } from '../types/pokemon.type'
-import { Box, Grid, SxProps } from '@mui/material'
+import { Box, Fade, Grid } from '@mui/material'
 import { PokeCard } from './PokeCard'
 
 export type Props = {
@@ -11,7 +11,7 @@ const PokeGrid = ({ data }: Props) => {
     <Box id='PokeGrid'>
       <Grid
         container
-        gap={1}
+        gap={3}
         alignItems={'center'}
         justifyContent={'center'}
       >
@@ -20,7 +20,14 @@ const PokeGrid = ({ data }: Props) => {
             item
             key={item.id}
           >
-            <PokeCard data={item} />
+            <Fade
+              in={!!data}
+              timeout={600}
+            >
+              <div>
+                <PokeCard data={item} />
+              </div>
+            </Fade>
           </Grid>
         ))}
       </Grid>
