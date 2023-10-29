@@ -8,13 +8,30 @@ import {
   Typography,
 } from '@mui/material'
 import { PokemonType } from '../types/pokemon.type'
+import { PokeCardSkeleton } from './PokeSkeletons'
+import { useCallback, useEffect, useState } from 'react'
+import { MainStore } from '../stores/main.store'
 
 type Props = {
-  data: PokemonType
+  pokemonName: string | undefined
 }
 
-export const PokeCard = ({ data }: Props) => {
-  return (
+export const PokeCard = ({ pokemonName }: Props) => {
+  const [data, setData] = useState<PokemonType>()
+
+  const fetchData = useCallback(async () => {
+    if (!pokemonName) return
+
+    const result = await MainStore.getPokemonByName(pokemonName)
+
+    setData(result)
+  }, [pokemonName])
+
+  useEffect(() => {
+    fetchData()
+  }, [fetchData, pokemonName])
+
+  return data ? (
     <Paper sx={paperCardStyle}>
       <Grid
         container
@@ -62,7 +79,6 @@ export const PokeCard = ({ data }: Props) => {
           <Box sx={boxButtonStyle}>
             <Button
               color='primary'
-              variant='outlined'
               size='small'
               fullWidth
             >
@@ -81,6 +97,8 @@ export const PokeCard = ({ data }: Props) => {
         </Grid>
       </Grid>
     </Paper>
+  ) : (
+    <PokeCardSkeleton />
   )
 }
 

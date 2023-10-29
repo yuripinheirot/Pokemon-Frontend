@@ -1,6 +1,6 @@
 import { Box, Grid, Paper, Skeleton, SxProps } from '@mui/material'
 
-const PokeCardSkeleton = () => {
+export const PokeCardSkeleton = () => {
   const animation = 'wave'
   return (
     <Paper sx={paperCardStyle}>

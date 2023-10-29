@@ -18,8 +18,9 @@ export class MainStore {
 
   static async getPokemonPaginated(paginateParams: queryPaginatedParams) {
     try {
+      const offset = (paginateParams.page - 1) * 24
       const { data } = await httpClient.get<PokemonOffsetType>(
-        `/pokemon?limit=${paginateParams.limit}&offset=${paginateParams.offset}`
+        `/pokemon?limit=${paginateParams.limit}&offset=${offset}`
       )
 
       return data

@@ -14,9 +14,14 @@ export type PokemonType = {
   }
 }
 
+export type PokemonOffsetApiType = {
+  name: string
+  url: string
+}
+
 export type PokemonOffsetType = {
   count: number
   next: string
   previous: string
-  results: PokemonType[]
+  results: PokemonOffsetApiType[]
 }

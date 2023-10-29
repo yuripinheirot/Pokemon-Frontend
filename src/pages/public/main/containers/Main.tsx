@@ -3,20 +3,22 @@ import { useEffect, useState } from 'react'
 import { PokemonOffsetType } from '../types/pokemon.type'
 import { MainStore } from '../stores/main.store'
 import PokeGrid from '../components/PokeGrid'
-import { PokeGridSkeleton } from '../components/PokeCardSkeleton'
+import { PokeGridSkeleton } from '../components/PokeSkeletons'
+import { useSearchParams } from 'react-router-dom'
 
 export const MainContainer = () => {
   const [pokemon, setPokemon] = useState<PokemonOffsetType>()
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [page, setPage] = useState<number>(1)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const limit = 12
-  const offset = 1
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    setCurrentPage(value)
+    setPage(value)
+    setSearchParams({ page: String(value) })
   }
 
   const PaginationComponent = () => {
@@ -24,7 +26,7 @@ export const MainContainer = () => {
       <Pagination
         count={pokemon?.count || limit}
         color='primary'
-        page={currentPage}
+        page={page}
         onChange={handleChangePage}
         shape='rounded'
       />
@@ -32,8 +34,13 @@ export const MainContainer = () => {
   }
 
   useEffect(() => {
-    MainStore.getPokemonPaginated({ limit, offset }).then(setPokemon)
-  }, [])
+    MainStore.getPokemonPaginated({ limit, page }).then(setPokemon)
+  }, [page])
+
+  useEffect(() => {
+    const page = searchParams.get('page') || 1
+    setPage(+page)
+  }, [searchParams, setSearchParams])
 
   return (
     <Box

@@ -18,14 +18,14 @@ const PokeGrid = ({ data }: Props) => {
         {data.results.map((item) => (
           <Grid
             item
-            key={item.id}
+            key={item.name}
           >
             <Fade
               in={!!data}
               timeout={600}
             >
               <div>
-                <PokeCard data={item} />
+                <PokeCard pokemonName={item.name} />
               </div>
             </Fade>
           </Grid>
