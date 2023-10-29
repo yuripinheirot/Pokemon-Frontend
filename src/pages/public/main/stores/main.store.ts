@@ -9,16 +9,13 @@ export class MainStore {
 
       return data
     } catch (error) {
-      // if (error instanceof AxiosError) {
-      //   throw new AxiosError(error)
-      // }
-      throw error
+      return undefined
     }
   }
 
   static async getPokemonPaginated(paginateParams: queryPaginatedParams) {
     try {
-      const offset = (paginateParams.page - 1) * 24
+      const offset = (paginateParams.page - 1) * paginateParams.limit
       const { data } = await httpClient.get<PokemonOffsetType>(
         `/pokemon?limit=${paginateParams.limit}&offset=${offset}`
       )

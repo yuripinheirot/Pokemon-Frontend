@@ -103,6 +103,7 @@ export const PokeGridSkeleton = ({ count }: { count: number }) => {
 const paperCardStyle: SxProps = {
   padding: '20px',
   width: 200,
+  height: 300,
 }
 
 const boxDescriptionStyle: SxProps = {

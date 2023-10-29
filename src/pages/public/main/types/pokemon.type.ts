@@ -20,7 +20,7 @@ export type PokemonOffsetApiType = {
 }
 
 export type PokemonOffsetType = {
-  count: number
+  totalPages: number
   next: string
   previous: string
   results: PokemonOffsetApiType[]

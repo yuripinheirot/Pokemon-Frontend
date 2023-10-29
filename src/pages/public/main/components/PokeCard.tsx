@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   CardMedia,
+  Fade,
   Grid,
   Paper,
   SxProps,
@@ -11,6 +12,7 @@ import { PokemonType } from '../types/pokemon.type'
 import { PokeCardSkeleton } from './PokeSkeletons'
 import { useCallback, useEffect, useState } from 'react'
 import { MainStore } from '../stores/main.store'
+import pokemonLogo from '../../../../assets/pokemon.svg'
 
 type Props = {
   pokemonName: string | undefined
@@ -32,71 +34,77 @@ export const PokeCard = ({ pokemonName }: Props) => {
   }, [fetchData, pokemonName])
 
   return data ? (
-    <Paper sx={paperCardStyle}>
-      <Grid
-        container
-        gap={1}
-      >
+    <Fade
+      in={!!data}
+      timeout={600}
+    >
+      <Paper sx={paperCardStyle}>
         <Grid
-          item
-          xs={12}
+          container
+          gap={1}
         >
-          <CardMedia
-            component='img'
-            height={120}
-            image={data.sprites.front_default || undefined}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <Typography
-            variant='subtitle1'
-            textAlign='center'
-            sx={titleStyle}
+          <Grid
+            item
+            xs={12}
           >
-            {data.name}
-          </Typography>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <Box sx={boxDescriptionStyle}>
+            <CardMedia
+              component='img'
+              image={data.sprites.front_default || (pokemonLogo as any)}
+              sx={imageStyle}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
             <Typography
+              variant='subtitle1'
               textAlign='center'
-              sx={descriptionStyle}
+              sx={titleStyle}
+              noWrap
             >
-              {data.description}
+              {data.name}
             </Typography>
-          </Box>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <Box sx={boxButtonStyle}>
-            <Button
-              color='primary'
-              size='small'
-              fullWidth
-            >
-              Details
-            </Button>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <Box sx={boxDescriptionStyle}>
+              <Typography
+                textAlign='center'
+                sx={descriptionStyle}
+              >
+                {data.description || 'A powerful pokemon!'}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <Box sx={boxButtonStyle}>
+              <Button
+                color='primary'
+                size='small'
+                fullWidth
+              >
+                Details
+              </Button>
 
-            <Button
-              color='primary'
-              variant='contained'
-              size='medium'
-              fullWidth
-            >
-              ADD
-            </Button>
-          </Box>
+              <Button
+                color='primary'
+                variant='contained'
+                size='medium'
+                fullWidth
+              >
+                ADD
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </Fade>
   ) : (
     <PokeCardSkeleton />
   )
@@ -105,6 +113,12 @@ export const PokeCard = ({ pokemonName }: Props) => {
 const paperCardStyle: SxProps = {
   padding: '20px',
   width: 200,
+  height: 300,
+}
+
+const imageStyle: SxProps = {
+  objectFit: 'contain',
+  height: 120,
 }
 
 const titleStyle: SxProps = {
