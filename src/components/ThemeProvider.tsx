@@ -69,10 +69,10 @@ export const ThemeProviderStyle = ({ children }: Props) => {
         palette: {
           mode,
           primary: {
-            main: '#f2484c',
+            main: '#3C68B0',
           },
           secondary: {
-            main: '#fff',
+            main: '#FFCD0D',
           },
           background: {
             paper: colorMode.themeMode() === 'dark' ? '#1E1E1E' : '#fff',

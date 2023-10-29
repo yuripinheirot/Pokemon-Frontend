@@ -10,7 +10,7 @@ export const MainContainer = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const limit = 12
-  const offset = 10
+  const offset = 1
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
