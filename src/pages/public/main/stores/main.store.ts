@@ -1,6 +1,6 @@
 import { queryPaginatedParams } from '@src/types/params.type'
 import { httpClient } from '../../../../utils/http-client.util'
-import { PokemonOffsetType, PokemonType } from '../types/pokemon.type'
+import { PokemonPaginatedType, PokemonType } from '../types/pokemon.type'
 
 export class MainStore {
   static async getPokemonByName(pokemon: string) {
@@ -16,16 +16,13 @@ export class MainStore {
   static async getPokemonPaginated(paginateParams: queryPaginatedParams) {
     try {
       const offset = (paginateParams.page - 1) * paginateParams.limit
-      const { data } = await httpClient.get<PokemonOffsetType>(
+      const { data } = await httpClient.get<PokemonPaginatedType>(
         `/pokemon?limit=${paginateParams.limit}&offset=${offset}`
       )
 
       return data
     } catch (error) {
-      // if (error instanceof AxiosError) {
-      //   throw new AxiosError(error)
-      // }
-      throw error
+      return undefined
     }
   }
 }

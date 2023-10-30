@@ -14,14 +14,14 @@ export type PokemonType = {
   }
 }
 
-export type PokemonOffsetApiType = {
+export type PokemonPaginatedApiType = {
   name: string
   url: string
 }
 
-export type PokemonOffsetType = {
+export type PokemonPaginatedType = {
   totalPages: number
   next: string
   previous: string
-  results: PokemonOffsetApiType[]
+  results: PokemonPaginatedApiType[]
 }

@@ -24,9 +24,7 @@ export const PokeCard = ({ pokemonName }: Props) => {
   const fetchData = useCallback(async () => {
     if (!pokemonName) return
 
-    const result = await MainStore.getPokemonByName(pokemonName)
-
-    setData(result)
+    MainStore.getPokemonByName(pokemonName).then(setData)
   }, [pokemonName])
 
   useEffect(() => {

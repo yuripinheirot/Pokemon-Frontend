@@ -1,16 +1,18 @@
 import { Box, Grid, Pagination, SxProps } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
-import { PokemonOffsetType } from '../types/pokemon.type'
+import { PokemonPaginatedType } from '../types/pokemon.type'
 import { MainStore } from '../stores/main.store'
 import PokeGrid from '../components/PokeGrid'
 import { PokeGridSkeleton } from '../components/PokeSkeletons'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 
 export const MainContainer = () => {
-  const [pokemonPaginated, setPokemonPaginated] = useState<PokemonOffsetType>()
+  const [pokemonPaginated, setPokemonPaginated] =
+    useState<PokemonPaginatedType>()
   const [page, setPage] = useState<number>(1)
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const limit = 12
 
@@ -22,11 +24,14 @@ export const MainContainer = () => {
     setSearchParams({ page: String(value) })
   }
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(() => {
     if (!searchParams.get('page')) return
 
-    const result = await MainStore.getPokemonPaginated({ limit, page })
-    setPokemonPaginated(result)
+    setLoading(true)
+
+    MainStore.getPokemonPaginated({ limit, page })
+      .then(setPokemonPaginated)
+      .finally(() => setLoading(false))
   }, [page, searchParams])
 
   const PaginationComponent = () => {
@@ -79,7 +84,7 @@ export const MainContainer = () => {
             item
             xs={12}
           >
-            {pokemonPaginated ? (
+            {!loading && pokemonPaginated ? (
               <PokeGrid data={pokemonPaginated} />
             ) : (
               <PokeGridSkeleton count={limit} />

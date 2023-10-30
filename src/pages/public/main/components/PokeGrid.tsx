@@ -1,9 +1,9 @@
-import { PokemonOffsetType } from '../types/pokemon.type'
-import { Box, Fade, Grid } from '@mui/material'
+import { PokemonPaginatedType } from '../types/pokemon.type'
+import { Box, Grid } from '@mui/material'
 import { PokeCard } from './PokeCard'
 
 export type Props = {
-  data: PokemonOffsetType
+  data: PokemonPaginatedType
 }
 
 const PokeGrid = ({ data }: Props) => {
@@ -20,14 +20,7 @@ const PokeGrid = ({ data }: Props) => {
             item
             key={item.name}
           >
-            <Fade
-              in={!!data}
-              timeout={600}
-            >
-              <div>
-                <PokeCard pokemonName={item.name} />
-              </div>
-            </Fade>
+            <PokeCard pokemonName={item.name} />
           </Grid>
         ))}
       </Grid>
