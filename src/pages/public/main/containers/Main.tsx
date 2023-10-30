@@ -21,6 +21,13 @@ export const MainContainer = () => {
     setSearchParams({ page: String(value) })
   }
 
+  const fetchData = useCallback(async () => {
+    if (!searchParams.get('page')) return
+
+    const result = await MainStore.getPokemonPaginated({ limit, page })
+    setPokemonPaginated(result)
+  }, [page, searchParams])
+
   const PaginationComponent = () => {
     return (
       <Pagination
@@ -33,23 +40,14 @@ export const MainContainer = () => {
     )
   }
 
-  const fetchData = useCallback(async () => {
-    if (!searchParams.get('page')) return
-
-    const result = await MainStore.getPokemonPaginated({ limit, page })
-
-    setPokemonPaginated(result)
-  }, [page, searchParams])
+  useEffect(() => {
+    const pageFromParams = Number(searchParams.get('page')) || 1
+    setPage(pageFromParams)
+  }, [searchParams])
 
   useEffect(() => {
     fetchData()
-  }, [fetchData, page])
-
-  useEffect(() => {
-    const page = searchParams.get('page') || 1
-    setSearchParams({ page: String(page) })
-    setPage(+page)
-  }, [searchParams, setSearchParams])
+  }, [fetchData])
 
   return (
     <Box
