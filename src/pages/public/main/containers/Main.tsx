@@ -4,12 +4,13 @@ import { PokemonOffsetType } from '../types/pokemon.type'
 import { MainStore } from '../stores/main.store'
 import PokeGrid from '../components/PokeGrid'
 import { PokeGridSkeleton } from '../components/PokeSkeletons'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 
 export const MainContainer = () => {
   const [pokemonPaginated, setPokemonPaginated] = useState<PokemonOffsetType>()
   const [page, setPage] = useState<number>(1)
   const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   const limit = 12
 
@@ -44,6 +45,10 @@ export const MainContainer = () => {
     const pageFromParams = Number(searchParams.get('page')) || 1
     setPage(pageFromParams)
   }, [searchParams])
+
+  useEffect(() => {
+    navigate('/?page=1')
+  }, [navigate])
 
   useEffect(() => {
     fetchData()
