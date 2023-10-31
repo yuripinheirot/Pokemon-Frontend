@@ -4,14 +4,11 @@ import { PokemonPaginatedType } from '../types/pokemon.type'
 import { MainStore } from '../stores/main.store'
 import PokeGrid from '../components/PokeGrid'
 import { PokeGridSkeleton } from '../components/PokeSkeletons'
-import { useSearchParams, useNavigate } from 'react-router-dom'
 
 export const MainContainer = () => {
   const [pokemonPaginated, setPokemonPaginated] =
     useState<PokemonPaginatedType>()
   const [page, setPage] = useState<number>(1)
-  const [searchParams, setSearchParams] = useSearchParams()
-  const navigate = useNavigate()
   const [loading, setLoading] = useState<boolean>(false)
 
   const limit = 12
@@ -21,18 +18,15 @@ export const MainContainer = () => {
     value: number
   ) => {
     setPage(value)
-    setSearchParams({ page: String(value) })
   }
 
   const fetchData = useCallback(() => {
-    if (!searchParams.get('page')) return
-
     setLoading(true)
 
     MainStore.getPokemonPaginated({ limit, page })
       .then(setPokemonPaginated)
       .finally(() => setLoading(false))
-  }, [page, searchParams])
+  }, [page])
 
   const PaginationComponent = () => {
     return (
@@ -45,15 +39,6 @@ export const MainContainer = () => {
       />
     )
   }
-
-  useEffect(() => {
-    const pageFromParams = Number(searchParams.get('page')) || 1
-    setPage(pageFromParams)
-  }, [searchParams])
-
-  useEffect(() => {
-    navigate('/?page=1')
-  }, [navigate])
 
   useEffect(() => {
     fetchData()

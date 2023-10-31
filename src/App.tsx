@@ -3,30 +3,39 @@ import { Box, SxProps } from '@mui/material'
 import { ThemeProviderStyle } from './components/ThemeProvider'
 import { Routes, BrowserRouter, Route } from 'react-router-dom'
 import { MainRoutes } from './pages/public/main/Routes'
+import keycloak from './utils/keycloack.util'
+import { ReactKeycloakProvider } from '@react-keycloak/web'
+import { PokedexRoutes } from './pages/private/pokedex/Routes'
 
 const App = () => {
   return (
-    <ThemeProviderStyle>
-      <BrowserRouter>
-        <Box
-          className='App'
-          sx={appStyle}
-        >
-          <Header />
+    <ReactKeycloakProvider authClient={keycloak}>
+      <ThemeProviderStyle>
+        <BrowserRouter>
           <Box
-            id='AppViewer'
-            sx={appViewerStyle}
+            className='App'
+            sx={appStyle}
           >
-            <Routes>
-              <Route
-                path='/*'
-                element={<MainRoutes />}
-              />
-            </Routes>
+            <Header />
+            <Box
+              id='AppViewer'
+              sx={appViewerStyle}
+            >
+              <Routes>
+                <Route
+                  path='/*'
+                  element={<MainRoutes />}
+                />
+                <Route
+                  path='/pokedex'
+                  element={<PokedexRoutes />}
+                />
+              </Routes>
+            </Box>
           </Box>
-        </Box>
-      </BrowserRouter>
-    </ThemeProviderStyle>
+        </BrowserRouter>
+      </ThemeProviderStyle>
+    </ReactKeycloakProvider>
   )
 }
 

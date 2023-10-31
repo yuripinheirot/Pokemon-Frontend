@@ -1,14 +1,15 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import PokedexContainer from './containers/Pokedex'
+import { PrivateRoute } from '../../../components/PrivateRoute'
 
 export const PokedexRoutes = () => {
   return (
     <Routes>
       <Route
         path='/'
-        element={<PokedexContainer />}
+        element={<PrivateRoute element={<PokedexContainer />} />}
       />
     </Routes>
   )

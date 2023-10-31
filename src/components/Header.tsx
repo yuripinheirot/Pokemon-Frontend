@@ -8,13 +8,15 @@ import pokemonLogo from '../assets/pokemon.svg'
 import { useNavigate } from 'react-router-dom'
 
 import { ColorModeContext, colorHeaderFooter } from './ThemeProvider'
+import { useKeycloak } from '@react-keycloak/web'
 
 export const Header = () => {
   const colorMode = useContext(ColorModeContext)
   const navigate = useNavigate()
+  const { keycloak, initialized } = useKeycloak()
 
   const goToMain = () => {
-    navigate('/?page=1')
+    navigate('/')
   }
 
   return (
@@ -35,7 +37,22 @@ export const Header = () => {
               <LightModeIcon sx={iconStyle} />
             )}
           </IconButton>
-          <Button variant='outlined'>Login</Button>
+
+          {keycloak.authenticated ? (
+            <Button
+              variant='outlined'
+              onClick={() => keycloak.logout()}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              variant='outlined'
+              onClick={() => keycloak.login()}
+            >
+              Login
+            </Button>
+          )}
         </Box>
       </Toolbar>
     </Box>
