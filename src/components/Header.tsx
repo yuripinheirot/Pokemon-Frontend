@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import { Box, Button, Grid, IconButton, SxProps } from '@mui/material'
+import { Box, Button, IconButton, SxProps } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar'
 import pokemonLogo from '../assets/pokemon.svg'
 import { useNavigate } from 'react-router-dom'
@@ -15,10 +15,6 @@ export const Header = () => {
   const navigate = useNavigate()
   const { keycloak, initialized } = useKeycloak()
 
-  const goToMain = () => {
-    navigate('/')
-  }
-
   return (
     <Box sx={boxStyle}>
       <Toolbar sx={toolbarStyle}>
@@ -26,7 +22,7 @@ export const Header = () => {
           src={pokemonLogo as any}
           style={logoStyle}
           alt='logo'
-          onClick={goToMain}
+          onClick={() => navigate('/')}
         />
 
         <Box sx={iconButtonStyle}>
@@ -39,12 +35,20 @@ export const Header = () => {
           </IconButton>
 
           {keycloak.authenticated ? (
-            <Button
-              variant='outlined'
-              onClick={() => keycloak.logout()}
-            >
-              Logout
-            </Button>
+            <>
+              <Button
+                variant='outlined'
+                onClick={() => navigate('/pokedex')}
+              >
+                Pokedex
+              </Button>
+              <Button
+                variant='outlined'
+                onClick={() => keycloak.logout()}
+              >
+                Logout
+              </Button>
+            </>
           ) : (
             <Button
               variant='outlined'
