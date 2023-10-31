@@ -1,7 +1,7 @@
-import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { MainContainer } from './containers/Main'
+import { PokedexRoutes } from '../../private/pokedex/Routes'
 
 export const MainRoutes = () => {
   return (
@@ -9,6 +9,10 @@ export const MainRoutes = () => {
       <Route
         path='/'
         element={<MainContainer />}
+      />
+      <Route
+        path='/pokedex'
+        element={<PokedexRoutes />}
       />
     </Routes>
   )

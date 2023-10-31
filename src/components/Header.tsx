@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import { Box, IconButton, SxProps } from '@mui/material'
+import { Box, Button, Grid, IconButton, SxProps } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar'
 import pokemonLogo from '../assets/pokemon.svg'
 import { useNavigate } from 'react-router-dom'
@@ -26,16 +26,17 @@ export const Header = () => {
           alt='logo'
           onClick={goToMain}
         />
-        <IconButton
-          sx={iconButtonStyle}
-          onClick={colorMode.toggleColorMode}
-        >
-          {colorMode.themeMode() === 'light' ? (
-            <DarkModeIcon sx={iconStyle} />
-          ) : (
-            <LightModeIcon sx={iconStyle} />
-          )}
-        </IconButton>
+
+        <Box sx={iconButtonStyle}>
+          <IconButton onClick={colorMode.toggleColorMode}>
+            {colorMode.themeMode() === 'light' ? (
+              <DarkModeIcon sx={iconStyle} />
+            ) : (
+              <LightModeIcon sx={iconStyle} />
+            )}
+          </IconButton>
+          <Button variant='outlined'>Login</Button>
+        </Box>
       </Toolbar>
     </Box>
   )
@@ -47,13 +48,13 @@ const boxStyle: SxProps = {
 }
 const toolbarStyle: SxProps = {
   display: 'flex',
-  alignItems: 'center',
   justifyContent: 'center',
-  bgcolor: colorHeaderFooter,
 }
 const iconButtonStyle: SxProps = {
+  display: 'flex',
   position: 'absolute',
-  right: 10,
+  right: 25,
+  gap: 3,
 }
 const iconStyle: SxProps = {
   color: '#f2f2f2',
