@@ -13,7 +13,7 @@ import { useKeycloak } from '@react-keycloak/web'
 export const Header = () => {
   const colorMode = useContext(ColorModeContext)
   const navigate = useNavigate()
-  const { keycloak, initialized } = useKeycloak()
+  const { keycloak } = useKeycloak()
 
   return (
     <Box sx={boxStyle}>
@@ -75,7 +75,7 @@ const iconButtonStyle: SxProps = {
   display: 'flex',
   position: 'absolute',
   right: 25,
-  gap: 3,
+  gap: 2,
 }
 const iconStyle: SxProps = {
   color: '#f2f2f2',
