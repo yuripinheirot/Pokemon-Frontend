@@ -4,34 +4,25 @@ import { BrowserRouter } from 'react-router-dom'
 import { PagesRoutes } from './pages/Routes'
 import { useKeycloak } from '@react-keycloak/web'
 import { LoadingPage } from './components/LoadingPage'
-import { useContext } from 'react'
-import HttpClientProvider from './components/HttpClientProvider'
-import { ThemeProviderStyle } from './components/ThemeProvider'
+import { AppProviders } from './contexts'
 
 const App = () => {
-  const { keycloak, initialized } = useKeycloak()
-  const httpClient = useContext(HttpClientProvider)
-
-  httpClient.defaults.headers.common[
-    'Authorization'
-  ] = `Bearer ${keycloak.token}`
+  const { initialized } = useKeycloak()
 
   return (
-    <HttpClientProvider.Provider value={httpClient}>
-      <ThemeProviderStyle>
-        <BrowserRouter>
-          <Box
-            className='App'
-            sx={appStyle}
-          >
-            <Header />
-            <Box id='AppViewer'>
-              {initialized ? <PagesRoutes /> : <LoadingPage />}
-            </Box>
+    <AppProviders>
+      <BrowserRouter>
+        <Box
+          className='App'
+          sx={appStyle}
+        >
+          <Header />
+          <Box id='AppViewer'>
+            {initialized ? <PagesRoutes /> : <LoadingPage />}
           </Box>
-        </BrowserRouter>
-      </ThemeProviderStyle>
-    </HttpClientProvider.Provider>
+        </Box>
+      </BrowserRouter>
+    </AppProviders>
   )
 }
 

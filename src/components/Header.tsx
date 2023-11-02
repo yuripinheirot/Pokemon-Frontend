@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar'
 import pokemonLogo from '../assets/pokemon.svg'
 import { useNavigate } from 'react-router-dom'
 
-import { ColorModeContext, colorHeaderFooter } from './ThemeProvider'
+import { ColorModeContext, colorHeaderFooter } from '../contexts/ThemeProvider'
 import { useKeycloak } from '@react-keycloak/web'
 
 export const Header = () => {
