@@ -25,7 +25,7 @@ export const MainContainer = () => {
   const PaginationComponent = () => {
     return (
       <Pagination
-        count={data?.totalPages || 10}
+        count={data?.totalPages || 100}
         color='primary'
         page={page}
         onChange={handleChangePage}

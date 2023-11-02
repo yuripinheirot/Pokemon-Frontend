@@ -10,26 +10,21 @@ import {
 } from '@mui/material'
 import { PokemonType } from '../types/pokemon.type'
 import { PokeCardSkeleton } from './PokeSkeletons'
-import { useCallback, useEffect, useState } from 'react'
 import { MainStore } from '../stores/main.store'
 import pokemonLogo from '../../../../assets/pokemon.svg'
+import { useQuery } from 'react-query'
 
 type Props = {
   pokemonName: string | undefined
 }
 
 export const PokeCard = ({ pokemonName }: Props) => {
-  const [data, setData] = useState<PokemonType>()
-
-  const fetchData = useCallback(async () => {
-    if (!pokemonName) return
-
-    MainStore.getPokemonByName(pokemonName).then(setData)
-  }, [pokemonName])
-
-  useEffect(() => {
-    fetchData()
-  }, [fetchData, pokemonName])
+  const { data } = useQuery<PokemonType>({
+    queryKey: ['pokeCard', pokemonName],
+    queryFn: async () => {
+      return MainStore.getPokemonByName(pokemonName!)
+    },
+  })
 
   return data ? (
     <Fade
