@@ -1,17 +1,19 @@
 import { Box, Grid, Pagination, SxProps } from '@mui/material'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { PokemonPaginatedType } from '../types/pokemon.type'
 import { MainStore } from '../stores/main.store'
 import PokeGrid from '../components/PokeGrid'
 import { PokeGridSkeleton } from '../components/PokeSkeletons'
+import { useQuery } from 'react-query'
 
 export const MainContainer = () => {
-  const [pokemonPaginated, setPokemonPaginated] =
-    useState<PokemonPaginatedType>()
   const [page, setPage] = useState<number>(1)
-  const [loading, setLoading] = useState<boolean>(false)
-
   const limit = 12
+
+  const { isLoading, data } = useQuery<PokemonPaginatedType>(
+    ['pokemonPaginated', limit, page],
+    () => MainStore.getPokemonPaginated({ limit, page })
+  )
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
@@ -20,18 +22,10 @@ export const MainContainer = () => {
     setPage(value)
   }
 
-  const fetchData = useCallback(() => {
-    setLoading(true)
-
-    MainStore.getPokemonPaginated({ limit, page })
-      .then(setPokemonPaginated)
-      .finally(() => setLoading(false))
-  }, [page])
-
   const PaginationComponent = () => {
     return (
       <Pagination
-        count={pokemonPaginated?.totalPages || 10}
+        count={data?.totalPages || 10}
         color='primary'
         page={page}
         onChange={handleChangePage}
@@ -39,10 +33,6 @@ export const MainContainer = () => {
       />
     )
   }
-
-  useEffect(() => {
-    fetchData()
-  }, [fetchData])
 
   return (
     <Box
@@ -69,8 +59,8 @@ export const MainContainer = () => {
             item
             xs={12}
           >
-            {!loading && pokemonPaginated ? (
-              <PokeGrid data={pokemonPaginated} />
+            {!isLoading && data ? (
+              <PokeGrid data={data} />
             ) : (
               <PokeGridSkeleton count={limit} />
             )}
