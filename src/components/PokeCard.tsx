@@ -25,7 +25,7 @@ export const PokeCard = ({ pokemonName }: Props) => {
     queryFn: async () => MainStore.getPokemonByNameOrId(pokemonName!),
   })
 
-  return data ? (
+  return data && !error ? (
     <Fade
       in={!!data}
       timeout={designConstants.skeletonTimeout}
