@@ -14,6 +14,7 @@ import pokemonLogo from '../assets/pokemon.svg'
 import { useQuery } from 'react-query'
 import { PokeCardSkeleton } from './PokeSkeleton'
 import { designConstants } from 'constants/design.constants'
+import { useKeycloak } from '@react-keycloak/web'
 
 type Props = {
   pokemonName: string | undefined
@@ -24,6 +25,7 @@ export const PokeCard = ({ pokemonName }: Props) => {
     queryKey: ['pokeCard', pokemonName],
     queryFn: async () => MainStore.getPokemonByNameOrId(pokemonName!),
   })
+  const { keycloak } = useKeycloak()
 
   return data && !error ? (
     <Fade
@@ -76,21 +78,22 @@ export const PokeCard = ({ pokemonName }: Props) => {
             xs={12}
           >
             <Box sx={boxButtonStyle}>
+              {keycloak.authenticated && (
+                <Button
+                  color='primary'
+                  size='medium'
+                  fullWidth
+                >
+                  ADD
+                </Button>
+              )}
               <Button
                 color='primary'
                 size='small'
                 fullWidth
+                variant='contained'
               >
                 Details
-              </Button>
-
-              <Button
-                color='primary'
-                variant='contained'
-                size='medium'
-                fullWidth
-              >
-                ADD
               </Button>
             </Box>
           </Grid>
