@@ -15,6 +15,8 @@ import { useQuery } from 'react-query'
 import { PokeCardSkeleton } from './PokeSkeleton'
 import { designConstants } from 'constants/design.constants'
 import { useKeycloak } from '@react-keycloak/web'
+import { PokedexContext } from 'contexts/PokedexProvider'
+import { useContext } from 'react'
 
 type Props = {
   pokemonName: string | undefined
@@ -26,6 +28,8 @@ export const PokeCard = ({ pokemonName }: Props) => {
     queryFn: async () => MainStore.getPokemonByNameOrId(pokemonName!),
   })
   const { keycloak } = useKeycloak()
+  const { pokedex } = useContext(PokedexContext)
+  const addedOnPokedex = pokedex.includes(pokemonName!)
 
   return data && !error ? (
     <Fade
@@ -80,11 +84,11 @@ export const PokeCard = ({ pokemonName }: Props) => {
             <Box sx={boxButtonStyle}>
               {keycloak.authenticated && (
                 <Button
-                  color='primary'
+                  color={addedOnPokedex ? 'error' : 'primary'}
                   size='medium'
                   fullWidth
                 >
-                  ADD
+                  {addedOnPokedex ? 'REMOVE' : 'ADD'}
                 </Button>
               )}
               <Button
