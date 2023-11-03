@@ -1,7 +1,7 @@
 import { Box, Grid, Pagination, SxProps } from '@mui/material'
 import { useState } from 'react'
 import { PokemonPaginatedType } from '../../../../types/pokemon.type'
-import { MainStore } from '../../../../stores/main.store'
+import { getPokemonPaginated } from '../../../../stores/main.store'
 import PokeGrid from '../../../../components/PokeGrid'
 import { PokeGridSkeleton } from '../../../../components/PokeGridSkeleton'
 import { useQuery } from 'react-query'
@@ -12,7 +12,7 @@ export const MainContainer = () => {
 
   const { isLoading, data } = useQuery<PokemonPaginatedType>(
     ['pokemonPaginated', limit, page],
-    () => MainStore.getPokemonPaginated({ limit, page })
+    () => getPokemonPaginated({ limit, page })
   )
 
   const handleChangePage = (

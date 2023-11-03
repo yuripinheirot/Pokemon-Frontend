@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@mui/material'
 import { PokemonType } from '../types/pokemon.type'
-import { MainStore } from '../stores/main.store'
+import { getPokemonByNameOrId } from '../stores/main.store'
 import pokemonLogo from '../assets/pokemon.svg'
 import { useQuery } from 'react-query'
 import { PokeCardSkeleton } from './PokeSkeleton'
@@ -25,7 +25,7 @@ type Props = {
 export const PokeCard = ({ pokemonName }: Props) => {
   const { data, error } = useQuery<PokemonType>({
     queryKey: ['pokeCard', pokemonName],
-    queryFn: async () => MainStore.getPokemonByNameOrId(pokemonName!),
+    queryFn: async () => getPokemonByNameOrId(pokemonName!),
   })
   const { keycloak } = useKeycloak()
   const { pokedex } = useContext(PokedexContext)
