@@ -19,10 +19,10 @@ type Props = {
 }
 
 export const PokeCard = ({ pokemonName }: Props) => {
-  const { data } = useQuery<PokemonType>({
+  const { data, error } = useQuery<PokemonType>({
     queryKey: ['pokeCard', pokemonName],
     queryFn: async () => {
-      return MainStore.getPokemonByName(pokemonName!)
+      return MainStore.getPokemonByNameOrId(pokemonName!)
     },
   })
 
@@ -99,7 +99,7 @@ export const PokeCard = ({ pokemonName }: Props) => {
       </Paper>
     </Fade>
   ) : (
-    <PokeCardSkeleton />
+    <PokeCardSkeleton failed={!!error} />
   )
 }
 

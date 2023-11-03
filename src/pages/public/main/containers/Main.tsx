@@ -60,7 +60,7 @@ export const MainContainer = () => {
             xs={12}
           >
             {!isLoading && data ? (
-              <PokeGrid data={data} />
+              <PokeGrid data={data.results.map((d) => d.name)} />
             ) : (
               <PokeGridSkeleton count={limit} />
             )}

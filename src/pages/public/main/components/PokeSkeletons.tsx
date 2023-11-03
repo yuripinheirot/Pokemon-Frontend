@@ -1,79 +1,138 @@
-import { Box, Grid, Paper, Skeleton, SxProps } from '@mui/material'
+import {
+  Box,
+  CardMedia,
+  Fade,
+  Grid,
+  Paper,
+  Skeleton,
+  SxProps,
+  Typography,
+} from '@mui/material'
+import pokemonFailImage from '../../../../assets/pokemon-fail.svg'
 
-export const PokeCardSkeleton = () => {
+type PokeCardSkeletonProps = {
+  failed?: boolean
+}
+
+export const PokeCardFail = () => {
+  return (
+    <Grid
+      container
+      gap={3}
+    >
+      <Grid
+        item
+        xs={12}
+      >
+        <CardMedia
+          component='img'
+          image={pokemonFailImage as any}
+          sx={imageStyle}
+        />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        display={'flex'}
+        marginTop={3}
+      >
+        <Typography
+          variant='overline'
+          textAlign='center'
+          width={'100%'}
+        >
+          Fail to load pokemon :(
+        </Typography>
+      </Grid>
+    </Grid>
+  )
+}
+
+export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
   const animation = 'wave'
   return (
     <Paper sx={paperCardStyle}>
-      <Grid
-        container
-        gap={1}
-      >
+      {!failed ? (
         <Grid
-          item
-          xs={12}
-          display={'flex'}
-          justifyContent={'center'}
+          container
+          gap={1}
         >
-          <Skeleton
-            variant='circular'
-            width={80}
-            height={80}
-            animation={animation}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <Skeleton
-            variant='text'
-            sx={{ fontSize: '3rem' }}
-            animation={animation}
-          />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <Box sx={boxDescriptionStyle}>
+          <Grid
+            item
+            xs={12}
+            display={'flex'}
+            justifyContent={'center'}
+          >
+            <Skeleton
+              variant='circular'
+              width={80}
+              height={80}
+              animation={animation}
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
             <Skeleton
               variant='text'
-              sx={{ fontSize: '1rem' }}
+              sx={{ fontSize: '3rem' }}
               animation={animation}
             />
-            <Skeleton
-              variant='text'
-              sx={{ fontSize: '1rem' }}
-              animation={animation}
-            />
-            <Skeleton
-              variant='text'
-              sx={{ fontSize: '1rem' }}
-              animation={animation}
-            />
-          </Box>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-        >
-          <Box sx={boxButtonStyle}>
-            <Skeleton
-              variant='rounded'
-              width={90}
-              height={40}
-              animation={animation}
-            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <Box sx={boxDescriptionStyle}>
+              <Skeleton
+                variant='text'
+                sx={{ fontSize: '1rem' }}
+                animation={animation}
+              />
+              <Skeleton
+                variant='text'
+                sx={{ fontSize: '1rem' }}
+                animation={animation}
+              />
+              <Skeleton
+                variant='text'
+                sx={{ fontSize: '1rem' }}
+                animation={animation}
+              />
+            </Box>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+          >
+            <Box sx={boxButtonStyle}>
+              <Skeleton
+                variant='rounded'
+                width={90}
+                height={40}
+                animation={animation}
+              />
 
-            <Skeleton
-              variant='rounded'
-              width={90}
-              height={40}
-              animation={animation}
-            />
-          </Box>
+              <Skeleton
+                variant='rounded'
+                width={90}
+                height={40}
+                animation={animation}
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <Fade
+          in={failed}
+          timeout={600}
+        >
+          <div>
+            <PokeCardFail />
+          </div>
+        </Fade>
+      )}
     </Paper>
   )
 }
@@ -114,4 +173,9 @@ const boxButtonStyle: SxProps = {
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: 2,
+}
+
+const imageStyle: SxProps = {
+  objectFit: 'contain',
+  height: 180,
 }

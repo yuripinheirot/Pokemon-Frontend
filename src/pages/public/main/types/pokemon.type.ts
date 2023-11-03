@@ -21,7 +21,5 @@ export type PokemonPaginatedApiType = {
 
 export type PokemonPaginatedType = {
   totalPages: number
-  next: string
-  previous: string
   results: PokemonPaginatedApiType[]
 }

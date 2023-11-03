@@ -1,9 +1,8 @@
-import { PokemonPaginatedType } from '../types/pokemon.type'
 import { Box, Grid } from '@mui/material'
 import { PokeCard } from './PokeCard'
 
 export type Props = {
-  data: PokemonPaginatedType
+  data: string[]
 }
 
 const PokeGrid = ({ data }: Props) => {
@@ -15,12 +14,12 @@ const PokeGrid = ({ data }: Props) => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        {data.results.map((item) => (
+        {data.map((item) => (
           <Grid
             item
-            key={item.name}
+            key={item}
           >
-            <PokeCard pokemonName={item.name} />
+            <PokeCard pokemonName={item} />
           </Grid>
         ))}
       </Grid>
