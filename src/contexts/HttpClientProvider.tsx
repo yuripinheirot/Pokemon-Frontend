@@ -1,6 +1,6 @@
 import { useKeycloak } from '@react-keycloak/web'
 import { httpClient } from '../utils/http-client.util'
-import { AxiosInstance } from 'axios'
+import { AxiosError, AxiosInstance } from 'axios'
 import { ReactNode, createContext } from 'react'
 
 export const HttpClientContext = createContext<AxiosInstance>(httpClient)
@@ -14,6 +14,15 @@ export const HttpClientProvider = ({ children }: Props) => {
   httpClient.defaults.headers.common[
     'Authorization'
   ] = `Bearer ${keycloak.token}`
+
+  httpClient.interceptors.response.use(
+    (value) => value,
+    (error) => {
+      if (error instanceof AxiosError && error.response?.status === 401) {
+        keycloak.login()
+      }
+    }
+  )
 
   return (
     <HttpClientContext.Provider value={httpClient}>
