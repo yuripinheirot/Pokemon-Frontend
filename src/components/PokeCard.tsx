@@ -17,6 +17,7 @@ import { designConstants } from 'constants/design.constants'
 import { useKeycloak } from '@react-keycloak/web'
 import { PokedexContext } from 'contexts/PokedexProvider'
 import { useContext } from 'react'
+import Carousel from 'react-material-ui-carousel'
 
 type Props = {
   pokemonName: string | undefined
@@ -31,6 +32,36 @@ export const PokeCard = ({ pokemonName }: Props) => {
   const { pokedex } = useContext(PokedexContext)
   const addedOnPokedex = pokedex.includes(pokemonName!)
 
+  const getPokemonImages = (data: PokemonType) => {
+    if (!data) return null
+
+    const spriteOrder: Array<keyof PokemonType['sprites']> = [
+      'front_default',
+      'back_default',
+    ]
+
+    const spritesOrdered = spriteOrder
+      .filter((key) => !!data.sprites[key])
+      .map((key) => (
+        <img
+          key={key}
+          src={data.sprites[key]!}
+          alt='pokemon_image'
+          style={imageStyle}
+        />
+      ))
+
+    return spritesOrdered.length ? (
+      spritesOrdered
+    ) : (
+      <img
+        src={pokemonLogo as any}
+        alt='pokemon_image'
+        style={imageStyle}
+      />
+    )
+  }
+
   return data && !error ? (
     <Fade
       in={!!data}
@@ -44,12 +75,19 @@ export const PokeCard = ({ pokemonName }: Props) => {
           <Grid
             item
             xs={12}
+            display={'flex'}
           >
-            <CardMedia
-              component='img'
-              image={data.sprites.front_default || (pokemonLogo as any)}
-              sx={imageStyle}
-            />
+            <Carousel
+              animation='slide'
+              indicators={false}
+              duration={300}
+              navButtonsAlwaysVisible={false}
+              navButtonsAlwaysInvisible={false}
+              autoPlay={false}
+              sx={carrouselStyle}
+            >
+              {getPokemonImages(data)}
+            </Carousel>
           </Grid>
           <Grid
             item
@@ -114,10 +152,14 @@ const paperCardStyle: SxProps = {
   width: 200,
   height: 300,
 }
-
-const imageStyle: SxProps = {
+const carrouselStyle: SxProps = {
+  height: 130,
+  width: '100%',
+}
+const imageStyle: React.CSSProperties = {
+  height: carrouselStyle.height as number,
+  width: '100%',
   objectFit: 'contain',
-  height: 120,
 }
 
 const titleStyle: SxProps = {

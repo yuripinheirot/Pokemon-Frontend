@@ -10,7 +10,7 @@ export const PagesRoutes = () => {
         element={<MainRoutes />}
       />
       <Route
-        path='/pokedex'
+        path='/pokedex/*'
         element={<PokedexRoutes />}
       />
     </Routes>
