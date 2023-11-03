@@ -1,55 +1,12 @@
-import {
-  Box,
-  CardMedia,
-  Fade,
-  Grid,
-  Paper,
-  Skeleton,
-  SxProps,
-  Typography,
-} from '@mui/material'
-import pokemonFailImage from '../../../../assets/pokemon-fail.svg'
+import { Box, Fade, Grid, Paper, Skeleton, SxProps } from '@mui/material'
+import { PokeCardFail } from './PokeCardFail'
+import { designConstants } from 'constants/design.constants'
 
 type PokeCardSkeletonProps = {
   failed?: boolean
 }
 
-export const PokeCardFail = () => {
-  return (
-    <Grid
-      container
-      gap={3}
-    >
-      <Grid
-        item
-        xs={12}
-      >
-        <CardMedia
-          component='img'
-          image={pokemonFailImage as any}
-          sx={imageStyle}
-        />
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        display={'flex'}
-        marginTop={3}
-      >
-        <Typography
-          variant='overline'
-          textAlign='center'
-          width={'100%'}
-        >
-          Fail to load pokemon :(
-        </Typography>
-      </Grid>
-    </Grid>
-  )
-}
-
 export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
-  const animation = 'wave'
   return (
     <Paper sx={paperCardStyle}>
       {!failed ? (
@@ -67,7 +24,7 @@ export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
               variant='circular'
               width={80}
               height={80}
-              animation={animation}
+              animation={designConstants.skeletonAnimation}
             />
           </Grid>
           <Grid
@@ -77,7 +34,7 @@ export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
             <Skeleton
               variant='text'
               sx={{ fontSize: '3rem' }}
-              animation={animation}
+              animation={designConstants.skeletonAnimation}
             />
           </Grid>
           <Grid
@@ -88,17 +45,17 @@ export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
               <Skeleton
                 variant='text'
                 sx={{ fontSize: '1rem' }}
-                animation={animation}
+                animation={designConstants.skeletonAnimation}
               />
               <Skeleton
                 variant='text'
                 sx={{ fontSize: '1rem' }}
-                animation={animation}
+                animation={designConstants.skeletonAnimation}
               />
               <Skeleton
                 variant='text'
                 sx={{ fontSize: '1rem' }}
-                animation={animation}
+                animation={designConstants.skeletonAnimation}
               />
             </Box>
           </Grid>
@@ -111,14 +68,14 @@ export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
                 variant='rounded'
                 width={90}
                 height={40}
-                animation={animation}
+                animation={designConstants.skeletonAnimation}
               />
 
               <Skeleton
                 variant='rounded'
                 width={90}
                 height={40}
-                animation={animation}
+                animation={designConstants.skeletonAnimation}
               />
             </Box>
           </Grid>
@@ -126,7 +83,7 @@ export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
       ) : (
         <Fade
           in={failed}
-          timeout={600}
+          timeout={designConstants.skeletonTimeout}
         >
           <div>
             <PokeCardFail />
@@ -137,45 +94,16 @@ export const PokeCardSkeleton = ({ failed }: PokeCardSkeletonProps) => {
   )
 }
 
-export const PokeGridSkeleton = ({ count }: { count: number }) => {
-  return (
-    <Box id='PokeGrid'>
-      <Grid
-        container
-        gap={3}
-        alignItems={'center'}
-        justifyContent={'center'}
-      >
-        {Array.from({ length: count }).map((item, index) => (
-          <Grid
-            item
-            key={index}
-          >
-            <PokeCardSkeleton />
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
-  )
-}
-
 const paperCardStyle: SxProps = {
   padding: '20px',
   width: 200,
   height: 300,
 }
-
 const boxDescriptionStyle: SxProps = {
   height: 70,
 }
-
 const boxButtonStyle: SxProps = {
   display: 'flex',
   justifyContent: 'space-between',
   marginTop: 2,
-}
-
-const imageStyle: SxProps = {
-  objectFit: 'contain',
-  height: 180,
 }

@@ -1,9 +1,9 @@
 import { Box, Grid, Pagination, SxProps } from '@mui/material'
 import { useState } from 'react'
-import { PokemonPaginatedType } from '../types/pokemon.type'
-import { MainStore } from '../stores/main.store'
-import PokeGrid from '../components/PokeGrid'
-import { PokeGridSkeleton } from '../components/PokeSkeletons'
+import { PokemonPaginatedType } from '../../../../types/pokemon.type'
+import { MainStore } from '../../../../stores/main.store'
+import PokeGrid from '../../../../components/PokeGrid'
+import { PokeGridSkeleton } from '../../../../components/PokeGridSkeleton'
 import { useQuery } from 'react-query'
 
 export const MainContainer = () => {

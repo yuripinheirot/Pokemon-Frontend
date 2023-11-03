@@ -9,10 +9,11 @@ import {
   Typography,
 } from '@mui/material'
 import { PokemonType } from '../types/pokemon.type'
-import { PokeCardSkeleton } from './PokeSkeletons'
 import { MainStore } from '../stores/main.store'
-import pokemonLogo from '../../../../assets/pokemon.svg'
+import pokemonLogo from '../assets/pokemon.svg'
 import { useQuery } from 'react-query'
+import { PokeCardSkeleton } from './PokeSkeleton'
+import { designConstants } from 'constants/design.constants'
 
 type Props = {
   pokemonName: string | undefined
@@ -21,15 +22,13 @@ type Props = {
 export const PokeCard = ({ pokemonName }: Props) => {
   const { data, error } = useQuery<PokemonType>({
     queryKey: ['pokeCard', pokemonName],
-    queryFn: async () => {
-      return MainStore.getPokemonByNameOrId(pokemonName!)
-    },
+    queryFn: async () => MainStore.getPokemonByNameOrId(pokemonName!),
   })
 
   return data ? (
     <Fade
       in={!!data}
-      timeout={600}
+      timeout={designConstants.skeletonTimeout}
     >
       <Paper sx={paperCardStyle}>
         <Grid

@@ -1,7 +1,7 @@
 import { Box, Grid, SxProps } from '@mui/material'
 import { useQuery } from 'react-query'
 import { getPokedex } from '../stores/pokedex.store'
-import PokeGrid from '../../../public/main/components/PokeGrid'
+import PokeGrid from '../../../../components/PokeGrid'
 import { PokedexType } from '../types/pokedex.type'
 import { LoadingPage } from 'components/LoadingPage'
 
