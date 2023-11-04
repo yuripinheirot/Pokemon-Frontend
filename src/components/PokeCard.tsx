@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  CardMedia,
   Fade,
   Grid,
   Paper,
@@ -11,29 +10,47 @@ import {
 import { PokemonType } from '../types/pokemon.type'
 import { getPokemonByNameOrId } from '../stores/main.store'
 import pokemonLogo from '../assets/pokemon.svg'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { PokeCardSkeleton } from './PokeSkeleton'
 import { designConstants } from 'constants/design.constants'
 import { useKeycloak } from '@react-keycloak/web'
 import { PokedexContext } from 'contexts/PokedexProvider'
 import { useContext } from 'react'
 import Carousel from 'react-material-ui-carousel'
+import { addPokedex } from 'pages/private/pokedex/stores/pokedex.store'
 
 type Props = {
   pokemonName: string | undefined
 }
 
 export const PokeCard = ({ pokemonName }: Props) => {
+  const { keycloak } = useKeycloak()
+  const { setPokedex, pokedex } = useContext(PokedexContext)
+
+  const addPokedexMutation = useMutation({
+    mutationFn: (pokemonName: string) => addPokedex(pokemonName),
+    onSuccess: (data) => {
+      setPokedex(data.pokedex)
+    },
+  })
+
   const { data, error } = useQuery<PokemonType>({
     queryKey: ['pokeCard', pokemonName],
     queryFn: async () => getPokemonByNameOrId(pokemonName!),
   })
-  const { keycloak } = useKeycloak()
-  const { pokedex } = useContext(PokedexContext)
+
   const addedOnPokedex = pokedex.includes(pokemonName!)
 
   const getPokemonImages = (data: PokemonType) => {
-    if (!data) return null
+    const defaultImage = (
+      <img
+        src={pokemonLogo as any}
+        alt='pokemon_image'
+        style={imageStyle}
+      />
+    )
+
+    if (!data) return [defaultImage]
 
     const spriteOrder: Array<keyof PokemonType['sprites']> = [
       'front_default',
@@ -51,15 +68,7 @@ export const PokeCard = ({ pokemonName }: Props) => {
         />
       ))
 
-    return spritesOrdered.length ? (
-      spritesOrdered
-    ) : (
-      <img
-        src={pokemonLogo as any}
-        alt='pokemon_image'
-        style={imageStyle}
-      />
-    )
+    return spritesOrdered.length ? spritesOrdered : [defaultImage]
   }
 
   return data && !error ? (
@@ -125,6 +134,7 @@ export const PokeCard = ({ pokemonName }: Props) => {
                   color={addedOnPokedex ? 'error' : 'primary'}
                   size='medium'
                   fullWidth
+                  onClick={() => addPokedexMutation.mutate(data.name)}
                 >
                   {addedOnPokedex ? 'REMOVE' : 'ADD'}
                 </Button>

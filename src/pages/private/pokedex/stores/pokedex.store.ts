@@ -6,3 +6,11 @@ export const getPokedex = async () => {
 
   return data
 }
+
+export const addPokedex = async (pokemon: string) => {
+  const { data } = await httpClient.post<PokedexType>(`/pokedex`, {
+    pokemonName: pokemon,
+  })
+
+  return data
+}
