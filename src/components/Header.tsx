@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { ColorModeContext, colorHeaderFooter } from '../contexts/ThemeProvider'
 import { useKeycloak } from '@react-keycloak/web'
+import { designConstants } from 'constants/design.constants'
 
 export const Header = () => {
   const colorMode = useContext(ColorModeContext)
@@ -25,7 +26,7 @@ export const Header = () => {
           onClick={() => navigate('/')}
         />
 
-        <Box sx={iconButtonStyle}>
+        <Box sx={itemsHeaderStyle}>
           <IconButton onClick={colorMode.toggleColorMode}>
             {colorMode.themeMode() === 'light' ? (
               <DarkModeIcon sx={iconStyle} />
@@ -35,7 +36,7 @@ export const Header = () => {
           </IconButton>
 
           {keycloak.authenticated ? (
-            <>
+            <Box sx={actionsHeaderStyle}>
               <Button
                 variant='outlined'
                 onClick={() => navigate('/pokedex')}
@@ -48,7 +49,7 @@ export const Header = () => {
               >
                 Logout
               </Button>
-            </>
+            </Box>
           ) : (
             <Button
               variant='outlined'
@@ -69,13 +70,17 @@ const boxStyle: SxProps = {
 }
 const toolbarStyle: SxProps = {
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
+  maxWidth: designConstants.maxWidthPage,
+  margin: '0px auto',
 }
-const iconButtonStyle: SxProps = {
+const itemsHeaderStyle: SxProps = {
   display: 'flex',
-  position: 'absolute',
-  right: 25,
-  gap: 2,
+  gap: 3,
+}
+const actionsHeaderStyle: SxProps = {
+  display: 'flex',
+  gap: itemsHeaderStyle.gap as number,
 }
 const iconStyle: SxProps = {
   color: '#f2f2f2',
