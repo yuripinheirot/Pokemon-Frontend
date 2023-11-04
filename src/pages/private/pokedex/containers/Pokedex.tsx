@@ -12,6 +12,34 @@ const PokedexContainer = () => {
     pokemon.toLowerCase().includes(search.toLowerCase())
   )
 
+  const renderPokeContent = () => {
+    if (!pokedex.length) {
+      return (
+        <Typography
+          variant='h5'
+          color='grey'
+          padding={20}
+        >
+          Your pokedex is empty
+        </Typography>
+      )
+    }
+
+    if (!pokedexFiltered.length) {
+      return (
+        <Typography
+          variant='h5'
+          color='grey'
+          padding={20}
+        >
+          Pokemon not found
+        </Typography>
+      )
+    }
+
+    return <PokeGrid data={pokedexFiltered} />
+  }
+
   return (
     <BoxContainer id='PokedexContainer'>
       <Grid
@@ -36,17 +64,7 @@ const PokedexContainer = () => {
           xs={12}
           sx={{ display: 'flex', justifyContent: 'center' }}
         >
-          {pokedex.length ? (
-            <PokeGrid data={pokedexFiltered} />
-          ) : (
-            <Typography
-              variant='h5'
-              color={'grey'}
-              padding={20}
-            >
-              Your pokedex is empty.
-            </Typography>
-          )}
+          {renderPokeContent()}
         </Grid>
       </Grid>
     </BoxContainer>
