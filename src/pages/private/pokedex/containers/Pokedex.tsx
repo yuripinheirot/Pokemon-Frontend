@@ -1,14 +1,13 @@
-import { Box, Grid, SxProps } from '@mui/material'
-import { useQuery } from 'react-query'
-import { getPokedex } from '../stores/pokedex.store'
+import { Box, Grid, Paper, SxProps, Typography } from '@mui/material'
 import PokeGrid from '../../../../components/PokeGrid'
-import { PokedexType } from '../types/pokedex.type'
 import { LoadingPage } from 'components/LoadingPage'
+import { useContext } from 'react'
+import { PokedexContext } from 'contexts/PokedexProvider'
 
 const PokedexContainer = () => {
-  const { data, isLoading } = useQuery<PokedexType>(['pokedex'], getPokedex)
+  const { pokedex } = useContext(PokedexContext)
 
-  return !isLoading ? (
+  return (
     <Box
       id='PokedexContainer'
       sx={pokedexContainerStyle}
@@ -25,13 +24,17 @@ const PokedexContainer = () => {
             item
             xs={12}
           >
-            {data && <PokeGrid data={data.pokedex} />}
+            {pokedex.length ? (
+              <PokeGrid data={pokedex} />
+            ) : (
+              <Paper sx={paperEmpty}>
+                <Typography variant='h5'>Your pokedex is empty.</Typography>
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Box>
     </Box>
-  ) : (
-    <LoadingPage />
   )
 }
 
@@ -44,6 +47,9 @@ const pokedexContainerStyle: SxProps = {
 
 const pokedexContainerView: SxProps = {
   maxWidth: 1200,
+}
+const paperEmpty: SxProps = {
+  padding: 6,
 }
 
 export default PokedexContainer
