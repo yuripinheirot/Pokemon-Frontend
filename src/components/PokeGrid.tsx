@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import { PokeCard } from './PokeCard'
+import { designConstants } from 'constants/design.constants'
 
 export type Props = {
   data: string[]
@@ -10,9 +11,9 @@ const PokeGrid = ({ data }: Props) => {
     <Box id='PokeGrid'>
       <Grid
         container
-        gap={3}
-        alignItems={'center'}
-        justifyContent={'center'}
+        gap={designConstants.pokeGrid.gap}
+        justifyContent={designConstants.pokeGrid.justifyContent}
+        alignItems={designConstants.pokeGrid.alignItems}
       >
         {data.map((item) => (
           <Grid
