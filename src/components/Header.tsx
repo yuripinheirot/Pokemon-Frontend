@@ -71,7 +71,7 @@ const boxStyle: SxProps = {
 const toolbarStyle: SxProps = {
   display: 'flex',
   justifyContent: 'space-between',
-  maxWidth: designConstants.maxWidthPage,
+  maxWidth: designConstants.widthPage,
   margin: '0px auto',
 }
 const itemsHeaderStyle: SxProps = {

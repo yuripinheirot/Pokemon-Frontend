@@ -17,7 +17,10 @@ const App = () => {
           sx={appStyle}
         >
           <Header />
-          <Box id='AppViewer'>
+          <Box
+            id='AppViewer'
+            sx={appViewerStyle}
+          >
             {initialized ? <PagesRoutes /> : <LoadingPage />}
           </Box>
         </Box>
@@ -29,9 +32,11 @@ const App = () => {
 const appStyle: SxProps = {
   bgcolor: 'background.default',
   minHeight: '100vh',
+}
+
+const appViewerStyle: SxProps = {
   display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
+  justifyContent: 'center',
 }
 
 export default App

@@ -11,15 +11,17 @@ const BoxContainer = ({ children, id }: Props) => {
   return (
     <Box
       id={id}
-      sx={pokedexContainerStyle}
+      sx={boxContainerStyle}
     >
       {children}
     </Box>
   )
 }
 
-const pokedexContainerStyle: SxProps = {
-  maxWidth: designConstants.maxWidthPage,
-  marginY: 4,
+const boxContainerStyle: SxProps = {
+  maxWidth: designConstants.widthPage,
+  display: 'flex',
+  padding: '24px',
+  flexGrow: 1,
 }
 export default BoxContainer

@@ -1,7 +1,7 @@
 type DesignContantsType = {
   skeletonAnimation: 'pulse' | 'wave' | false
   skeletonTimeout: number
-  maxWidthPage: number
+  widthPage: number
   pokeGrid: {
     gap: number
     justifyContent: string
@@ -12,10 +12,10 @@ type DesignContantsType = {
 export const designConstants: DesignContantsType = {
   skeletonAnimation: 'wave',
   skeletonTimeout: 600,
-  maxWidthPage: 1024,
+  widthPage: 1024,
   pokeGrid: {
     gap: 2.6,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 }
