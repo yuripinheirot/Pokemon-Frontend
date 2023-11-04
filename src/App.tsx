@@ -29,6 +29,9 @@ const App = () => {
 const appStyle: SxProps = {
   bgcolor: 'background.default',
   minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 }
 
 export default App

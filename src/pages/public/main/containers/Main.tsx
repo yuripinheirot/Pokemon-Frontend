@@ -6,6 +6,7 @@ import PokeGrid from '../../../../components/PokeGrid'
 import { PokeGridSkeleton } from '../../../../components/PokeGridSkeleton'
 import { useQuery } from 'react-query'
 import { designConstants } from 'constants/design.constants'
+import BoxContainer from 'components/BoxContainer'
 
 export const MainContainer = () => {
   const [page, setPage] = useState<number>(1)
@@ -36,10 +37,7 @@ export const MainContainer = () => {
   }
 
   return (
-    <Box
-      id='MainContainer'
-      sx={mainContainerStyle}
-    >
+    <BoxContainer id='MainContainer'>
       <Box
         id='mainContainerView'
         sx={mainContainerView}
@@ -83,7 +81,7 @@ export const MainContainer = () => {
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </BoxContainer>
   )
 }
 
