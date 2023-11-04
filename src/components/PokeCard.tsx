@@ -17,7 +17,10 @@ import { useKeycloak } from '@react-keycloak/web'
 import { PokedexContext } from 'contexts/PokedexProvider'
 import { useContext } from 'react'
 import Carousel from 'react-material-ui-carousel'
-import { addPokedex } from 'pages/private/pokedex/stores/pokedex.store'
+import {
+  addPokedex,
+  removePokedex,
+} from 'pages/private/pokedex/stores/pokedex.store'
 
 type Props = {
   pokemonName: string | undefined
@@ -29,6 +32,12 @@ export const PokeCard = ({ pokemonName }: Props) => {
 
   const addPokedexMutation = useMutation({
     mutationFn: (pokemonName: string) => addPokedex(pokemonName),
+    onSuccess: (data) => {
+      setPokedex(data.pokedex)
+    },
+  })
+  const removePokedexMutation = useMutation({
+    mutationFn: (pokemonName: string) => removePokedex(pokemonName),
     onSuccess: (data) => {
       setPokedex(data.pokedex)
     },
@@ -134,7 +143,11 @@ export const PokeCard = ({ pokemonName }: Props) => {
                   color={addedOnPokedex ? 'error' : 'primary'}
                   size='medium'
                   fullWidth
-                  onClick={() => addPokedexMutation.mutate(data.name)}
+                  onClick={() =>
+                    addedOnPokedex
+                      ? removePokedexMutation.mutate(data.name)
+                      : addPokedexMutation.mutate(data.name)
+                  }
                 >
                   {addedOnPokedex ? 'REMOVE' : 'ADD'}
                 </Button>

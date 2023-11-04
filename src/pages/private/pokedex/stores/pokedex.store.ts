@@ -14,3 +14,11 @@ export const addPokedex = async (pokemon: string) => {
 
   return data
 }
+
+export const removePokedex = async (pokemonName: string) => {
+  const { data } = await httpClient.delete<PokedexType>(
+    `/pokedex/${pokemonName}`
+  )
+
+  return data
+}
