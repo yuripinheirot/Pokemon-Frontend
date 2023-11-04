@@ -1,19 +1,20 @@
-import { Box, Grid, Pagination, SxProps } from '@mui/material'
+import { Box, Fade, Grid, Pagination, SxProps } from '@mui/material'
 import { useState } from 'react'
 import { PokemonPaginatedType } from '../../../../types/pokemon.type'
 import { getPokemonPaginated } from '../../../../stores/main.store'
 import PokeGrid from '../../../../components/PokeGrid'
 import { PokeGridSkeleton } from '../../../../components/PokeGridSkeleton'
 import { useQuery } from 'react-query'
+import { designConstants } from 'constants/design.constants'
 
 export const MainContainer = () => {
   const [page, setPage] = useState<number>(1)
   const limit = 12
 
-  const { isLoading, data } = useQuery<PokemonPaginatedType>(
-    ['pokemonPaginated', limit, page],
-    () => getPokemonPaginated({ limit, page })
-  )
+  const { isLoading, data } = useQuery<PokemonPaginatedType>({
+    queryKey: ['pokemonPaginated', limit, page],
+    queryFn: () => getPokemonPaginated({ limit, page }),
+  })
 
   const handleChangePage = (
     event: React.ChangeEvent<unknown>,
@@ -62,7 +63,14 @@ export const MainContainer = () => {
             {!isLoading && data ? (
               <PokeGrid data={data.results.map((d) => d.name)} />
             ) : (
-              <PokeGridSkeleton count={limit} />
+              <Fade
+                in={isLoading}
+                timeout={designConstants.skeletonTimeout}
+              >
+                <div>
+                  <PokeGridSkeleton count={limit} />
+                </div>
+              </Fade>
             )}
           </Grid>
           <Grid
