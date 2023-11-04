@@ -1,8 +1,7 @@
-import { Grid, Paper, TextField } from '@mui/material'
+import { Grid, Paper, TextField, Typography } from '@mui/material'
 import PokeGrid from '../../../../components/PokeGrid'
 import { useContext, useState } from 'react'
 import { PokedexContext } from 'contexts/PokedexProvider'
-import PokedexEmpty from '../components/PokedexEmpty'
 import BoxContainer from 'components/BoxContainer'
 
 const PokedexContainer = () => {
@@ -35,11 +34,18 @@ const PokedexContainer = () => {
         <Grid
           item
           xs={12}
+          sx={{ display: 'flex', justifyContent: 'center' }}
         >
           {pokedex.length ? (
             <PokeGrid data={pokedexFiltered} />
           ) : (
-            <PokedexEmpty />
+            <Typography
+              variant='h5'
+              color={'grey'}
+              padding={20}
+            >
+              Your pokedex is empty.
+            </Typography>
           )}
         </Grid>
       </Grid>

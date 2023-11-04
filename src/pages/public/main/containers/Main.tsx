@@ -85,13 +85,6 @@ export const MainContainer = () => {
   )
 }
 
-const mainContainerStyle: SxProps = {
-  paddingX: 10,
-  paddingY: 4,
-  display: 'flex',
-  justifyContent: 'center',
-}
-
 const mainContainerView: SxProps = {
   maxWidth: 1200,
 }
