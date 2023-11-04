@@ -1,16 +1,12 @@
-import { Box, CircularProgress, SxProps } from '@mui/material'
+import { Backdrop, CircularProgress } from '@mui/material'
 
 export const LoadingPage = () => {
   return (
-    <Box sx={boxStyle}>
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={true}
+    >
       <CircularProgress />
-    </Box>
+    </Backdrop>
   )
-}
-
-const boxStyle: SxProps = {
-  height: '100vh',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
 }
