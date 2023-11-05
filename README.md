@@ -18,7 +18,7 @@ Além de ser uma Pokédex completa, este projeto vai além com funcionalidades a
 
 ### 🚀 Começando
 
-**☢️ Antes de executar esta aplicação, é essencial que todo o backend seja configurado e instalado corretamente.**
+**⚠️ Antes de executar esta aplicação, é essencial que todo o backend seja configurado e instalado corretamente.**
 
 ### Pré-requisitos
 
@@ -47,7 +47,7 @@ yarn
 yarn dev
 ```
 
-O aplicativo agora estará rodando em `http://localhost:3000`.
+O aplicativo agora estará rodando em [http://localhost:3000](http://localhost:3000).
 
 ### 🛠️ Construído Com
 
