@@ -20,7 +20,7 @@ Além de ser uma Pokédex completa, este projeto vai além com funcionalidades a
 
 ### 🚀 Começando
 
-**⚠️ Antes de executar esta aplicação, é essencial que todo o backend seja configurado e instalado corretamente.**
+**⚠️ Antes de executar esta aplicação, é essencial que todo o [backend](https://github.com/yuripinheirot/pokemon-project-back) seja configurado e instalado corretamente.**
 
 ### Pré-requisitos
 
