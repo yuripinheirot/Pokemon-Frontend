@@ -4,7 +4,7 @@
 
 ## ☢️ NÃO É UMA SIMPLES POKEDEX
 
-Além de ser uma Pokédex completa, este projeto vai além com funcionalidades avançadas. Possui um design moderno desenvolvido em React, com layout responsivo, modo noturno, otimização de desempenho através do React-Query e um sistema seguro e robusto de login para que você possa marcar seus Pokémon prediletos!
+Além de ser uma Pokédex completa, este projeto vai além com funcionalidades avançadas. Possui um design moderno desenvolvido em React, com layout responsivo, modo noturno, otimização de desempenho através do React-Query e um sistema seguro e robusto de login para que você possa marcar seus Pokémon prediletos. Adicionalmente, a Pokédex se conecta a um middleware backend feito em NestJS, otimizado para caching e acesso de recursos personalizados.
 
 ### 🎨 Características
 
@@ -12,6 +12,7 @@ Além de ser uma Pokédex completa, este projeto vai além com funcionalidades a
 - **Material Design com MUI:** Estética e funcionalidade inspiradas no Material Design, com componentes e ícones oriundos de @mui/material e @mui/icons-material.
 - **Desenvolvimento em TypeScript:** Código fonte da Pokédex escrito em TypeScript, o que assegura robustez e clareza na lógica do projeto.
 - **Dados Otimizados com React-query:** Pokédex utiliza caching com react-query, minimizando a necessidade de requisições repetidas e acelerando o carregamento de dados.
+- **Conexão com Backend em NestJS:** A Pokédex se integra a um middleware backend robusto desenvolvido em NestJS, otimizado para caching e eficiência no acesso de recursos.
 - **Dark mode:** Uma interface que cuida dos seus olhos! Alterne facilmente entre os modos de acordo com sua preferência.
 - **Pokedex Personalizada:** Faça login e salve seus Pokémon favoritos para acessar rapidamente sempre que quiser.
 - **Autenticação com Keycloak:** A Pokédex oferece um sistema de login seguro e robusto através da integração do @react-keycloak/web e keycloak-js.
@@ -39,6 +40,7 @@ git clone https://github.com/yuripinheirot/pokemon-project-front
 ``` shell
 cd pokemon-project-front
 ```
+
 3. Instale as dependências:
 ``` shell
 yarn
