@@ -1,4 +1,11 @@
-import { Box, Fade, Grid, Pagination, SxProps } from '@mui/material'
+import {
+  Box,
+  Fade,
+  Grid,
+  Pagination,
+  SxProps,
+  useMediaQuery,
+} from '@mui/material'
 import { useState } from 'react'
 import { PokemonPaginatedType } from '../../../../types/pokemon.type'
 import { getPokemonPaginated } from '../../../../stores/main.store'
@@ -9,6 +16,7 @@ import { designConstants } from 'constants/design.constants'
 import BoxContainer from 'components/BoxContainer'
 
 export const MainContainer = () => {
+  const isMobilePage = useMediaQuery(designConstants.mediaQueryWidthPageMobile)
   const [page, setPage] = useState<number>(1)
   const limit = 12
 
@@ -32,6 +40,7 @@ export const MainContainer = () => {
         page={page}
         onChange={handleChangePage}
         shape='rounded'
+        size={isMobilePage ? 'small' : 'medium'}
       />
     )
   }

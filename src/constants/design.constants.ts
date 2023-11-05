@@ -7,6 +7,7 @@ type DesignContantsType = {
     justifyContent: string
     alignItems: string
   }
+  mediaQueryWidthPageMobile: string
 }
 
 export const designConstants: DesignContantsType = {
@@ -18,4 +19,5 @@ export const designConstants: DesignContantsType = {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  mediaQueryWidthPageMobile: '(max-width:550px)',
 }

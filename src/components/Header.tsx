@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import LightModeIcon from '@mui/icons-material/LightMode'
-import { Box, Button, IconButton, SxProps } from '@mui/material'
+import { Box, Button, IconButton, SxProps, useMediaQuery } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar'
 import pokemonLogo from '../assets/pokemon.svg'
 import { useNavigate } from 'react-router-dom'
@@ -15,17 +15,22 @@ export const Header = () => {
   const colorMode = useContext(ColorModeContext)
   const navigate = useNavigate()
   const { keycloak } = useKeycloak()
+  const isMobilePage = useMediaQuery(designConstants.mediaQueryWidthPageMobile)
+
+  const toolbarMobileStyle = {
+    ...toolbarStyle,
+    ...((isMobilePage && addtionalToolbarMobileStyle) as SxProps),
+  }
 
   return (
     <Box sx={boxStyle}>
-      <Toolbar sx={toolbarStyle}>
+      <Toolbar sx={toolbarMobileStyle}>
         <img
           src={pokemonLogo as any}
           style={logoStyle}
           alt='logo'
           onClick={() => navigate('/')}
         />
-
         <Box sx={itemsHeaderStyle}>
           <IconButton onClick={colorMode.toggleColorMode}>
             {colorMode.themeMode() === 'light' ? (
@@ -63,17 +68,26 @@ export const Header = () => {
     </Box>
   )
 }
+const toolbarStyle: SxProps = {
+  display: 'flex',
+  maxWidth: designConstants.widthPage as number,
+  margin: '0px auto',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+}
+
+const addtionalToolbarMobileStyle: SxProps = {
+  justifyContent: 'center',
+  paddingY: 2,
+  gap: 2,
+}
 
 const boxStyle: SxProps = {
   width: '100%',
   bgcolor: colorHeaderFooter,
 }
-const toolbarStyle: SxProps = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  maxWidth: designConstants.widthPage,
-  margin: '0px auto',
-}
+
 const itemsHeaderStyle: SxProps = {
   display: 'flex',
   gap: 3,
