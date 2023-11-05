@@ -20,9 +20,10 @@ export const MainContainer = () => {
   const [page, setPage] = useState<number>(1)
   const limit = 12
 
-  const { isLoading, data } = useQuery<PokemonPaginatedType>({
+  const { isFetching, data } = useQuery<PokemonPaginatedType>({
     queryKey: ['pokemonPaginated', limit, page],
     queryFn: () => getPokemonPaginated({ limit, page }),
+    keepPreviousData: true,
   })
 
   const handleChangePage = (
@@ -67,11 +68,11 @@ export const MainContainer = () => {
             item
             xs={12}
           >
-            {!isLoading && data ? (
+            {!isFetching && data ? (
               <PokeGrid data={data.results.map((d) => d.name)} />
             ) : (
               <Fade
-                in={isLoading}
+                in={isFetching}
                 timeout={designConstants.skeletonTimeout}
               >
                 <div>
