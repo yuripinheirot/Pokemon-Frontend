@@ -4,7 +4,7 @@
 
 ## ☢️ NÃO É UMA SIMPLES POKEDEX
 
-Além de ser uma Pokédex completa, este projeto vai além com funcionalidades avançadas. Possui um design moderno desenvolvido em React, com layout responsivo, modo noturno, otimização de desempenho através do React-Query e um sistema seguro e robusto de login para que você possa marcar seus Pokémon prediletos. Adicionalmente, a Pokédex se conecta a um middleware backend feito em NestJS, otimizado para caching e acesso de recursos personalizados.
+Além de ser uma Pokédex completa, este projeto vai além com funcionalidades avançadas. Possui um design moderno desenvolvido em React, com layout responsivo, modo noturno, otimização de desempenho através do React-Query e um sistema seguro e robusto de login para que você possa marcar seus Pokémon prediletos. Adicionalmente, a Pokédex se conecta a um middleware backend feito em NestJS, otimizado para caching e acesso à recursos personalizados.
 
 ### 🎨 Características
 
