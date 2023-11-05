@@ -1,10 +1,10 @@
 # POKEDEX
 
-### ☢️ NÃO É UMA SIMPLES POKEDEX
+## ☢️ NÃO É UMA SIMPLES POKEDEX
 
 Mais que uma pokedex, este projeto inclui varias features avançadas, um front-end moderno construído com React, apresentando um layout responsivo, modo claro/escuro, caching via React-Query e um sistema de login de usuário robusto para que você possa adicionar seus Pokémon favoritos!
 
-## 🎨 Características
+### 🎨 Características
 
 - **Layout Responsivo:** Adapta-se perfeitamente a qualquer tamanho de tela, desde dispositivos móveis a desktops.
 - **React:** Desenvolvido usando a mais recente versão do React.
@@ -13,7 +13,7 @@ Mais que uma pokedex, este projeto inclui varias features avançadas, um front-e
 - **Pokedex Personalizada:** Faça login e salve seus Pokémon favoritos para acessar rapidamente sempre que quiser.
 - **Sistema de Login:** Mantenha sua lista de Pokémon favoritos segura e acessível apenas por você.
 
-## 🚀 Começando
+### 🚀 Começando
 
 ### Pré-requisitos
 
@@ -48,16 +48,16 @@ bashCopy code
 
 O aplicativo agora estará rodando em `http://localhost:3000`.
 
-## 🛠️ Construído Com
+### 🛠️ Construído Com
 
 - [React](https://reactjs.org/)
 - [React-Query](https://react-query.tanstack.com/)
 - [Styled Components](https://styled-components.com/) para estilização
 
-## 📝 Licença
+### 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://chat.openai.com/c/LICENSE) para mais detalhes.
 
-## 💬 Contribuições
+### 💬 Contribuições
 
 Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir uma `issue` ou enviar um `pull request`.
