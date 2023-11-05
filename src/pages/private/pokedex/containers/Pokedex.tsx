@@ -30,7 +30,7 @@ const PokedexContainer = () => {
         <Typography
           variant='h5'
           color='grey'
-          padding={20}
+          paddingY={20}
         >
           Pokemon not found
         </Typography>
