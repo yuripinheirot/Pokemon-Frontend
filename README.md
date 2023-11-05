@@ -1,46 +1,63 @@
-# Getting Started with Create React App
+# POKEDEX
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### ☢️ NÃO É UMA SIMPLES POKEDEX
 
-## Available Scripts
+Mais que uma pokedex, este projeto inclui varias features avançadas, um front-end moderno construído com React, apresentando um layout responsivo, modo claro/escuro, caching via React-Query e um sistema de login de usuário robusto para que você possa adicionar seus Pokémon favoritos!
 
-In the project directory, you can run:
+## 🎨 Características
 
-### `npm start`
+- **Layout Responsivo:** Adapta-se perfeitamente a qualquer tamanho de tela, desde dispositivos móveis a desktops.
+- **React:** Desenvolvido usando a mais recente versão do React.
+- **React-query para Caching:** Mantenha os dados dos seus Pokémon carregados rapidamente, sem a necessidade de fazer novas requisições constantemente.
+- **Modo Claro/Escuro:** Uma interface que cuida dos seus olhos! Alterne facilmente entre os modos de acordo com sua preferência.
+- **Pokedex Personalizada:** Faça login e salve seus Pokémon favoritos para acessar rapidamente sempre que quiser.
+- **Sistema de Login:** Mantenha sua lista de Pokémon favoritos segura e acessível apenas por você.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🚀 Começando
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Pré-requisitos
 
-### `npm test`
+- Node.js
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Instalação
 
-### `npm run build`
+1. Clone este repositório:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+bashCopy code
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`git clone https://github.com/seu_usuario/pokedex-react-app.git`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Navegue até o diretório do projeto:
 
-### `npm run eject`
+bashCopy code
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`cd pokedex-react-app`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Instale as dependências:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+bashCopy code
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+`npm install # or yarn install`
 
-## Learn More
+4. Execute o aplicativo localmente:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+bashCopy code
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`npm start # or yarn start`
+
+O aplicativo agora estará rodando em `http://localhost:3000`.
+
+## 🛠️ Construído Com
+
+- [React](https://reactjs.org/)
+- [React-Query](https://react-query.tanstack.com/)
+- [Styled Components](https://styled-components.com/) para estilização
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://chat.openai.com/c/LICENSE) para mais detalhes.
+
+## 💬 Contribuições
+
+Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir uma `issue` ou enviar um `pull request`.
