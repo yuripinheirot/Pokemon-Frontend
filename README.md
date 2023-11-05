@@ -10,13 +10,15 @@ Além de ser uma Pokédex completa, este projeto vai além com funcionalidades a
 - **Material Design com MUI:** Estética e funcionalidade inspiradas no Material Design, com componentes e ícones oriundos de @mui/material e @mui/icons-material.
 - **Desenvolvimento em TypeScript:** Código fonte da Pokédex escrito em TypeScript, o que assegura robustez e clareza na lógica do projeto.
 - **Dados Otimizados com React-query:** Pokédex utiliza caching com react-query, minimizando a necessidade de requisições repetidas e acelerando o carregamento de dados.
-- **Modo Claro/Escuro:** Uma interface que cuida dos seus olhos! Alterne facilmente entre os modos de acordo com sua preferência.
+- **Dark mode:** Uma interface que cuida dos seus olhos! Alterne facilmente entre os modos de acordo com sua preferência.
 - **Pokedex Personalizada:** Faça login e salve seus Pokémon favoritos para acessar rapidamente sempre que quiser.
 - **Autenticação com Keycloak:** A Pokédex oferece um sistema de login seguro e robusto através da integração do @react-keycloak/web e keycloak-js.
 - **Layout Responsivo:** Adapta-se perfeitamente a qualquer tamanho de tela, desde dispositivos móveis a desktops.
 - **Carrossel MUI:** Destaques e apresentações interativas na Pokédex são feitos com o componente react-material-ui-carousel.
 
 ### 🚀 Começando
+
+**☢️ Antes de executar esta aplicação, é essencial que todo o backend seja configurado e instalado corretamente.**
 
 ### Pré-requisitos
 
@@ -27,16 +29,23 @@ Além de ser uma Pokédex completa, este projeto vai além com funcionalidades a
 ### Instalação
 
 1. Clone este repositório:
-`git clone https://github.com/yuripinheirot/pokemon-project-front`
+``` shell
+git clone https://github.com/yuripinheirot/pokemon-project-front
+```
 
 2. Navegue até o diretório do projeto:
-`cd pokemon-project-front``
-
+``` shell
+cd pokemon-project-front
+```
 3. Instale as dependências:
-`yarn`
+``` shell
+yarn
+```
 
 4. Execute o aplicativo localmente:
-`yarn dev`
+``` shell
+yarn dev
+```
 
 O aplicativo agora estará rodando em `http://localhost:3000`.
 
