@@ -32,26 +32,30 @@ Além de ser uma Pokédex completa, este projeto vai além com funcionalidades a
 ### Instalação
 
 1. Clone este repositório:
-``` shell
+
+```shell
 git clone https://github.com/yuripinheirot/pokemon-project-front
 ```
 
 2. Navegue até o diretório do projeto:
-``` shell
+
+```shell
 cd pokemon-project-front
 ```
 
 3. Instale as dependências:
-``` shell
+
+```shell
 yarn
 ```
 
 4. Execute o aplicativo localmente:
-``` shell
+
+```shell
 yarn dev
 ```
 
-O aplicativo agora estará rodando em [http://localhost:3000](http://localhost:3000).
+O aplicativo agora estará rodando em [http://172.17.0.1:3000](http://172.17.0.1:3000).
 
 ### 🛠️ Construído Com
 

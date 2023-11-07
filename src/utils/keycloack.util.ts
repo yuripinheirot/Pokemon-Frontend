@@ -1,7 +1,7 @@
 import Keycloak from 'keycloak-js'
 
 const keycloak = new Keycloak({
-  url: 'http://host.docker.internal:8080/auth',
+  url: 'http://172.17.0.1:8080/auth',
   realm: 'pokemon',
   clientId: 'pokemon-front',
 })
