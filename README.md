@@ -55,7 +55,7 @@ yarn
 yarn dev
 ```
 
-O aplicativo agora estará rodando em [http://172.17.0.1:3000](http://172.17.0.1:3000).
+O aplicativo agora estará rodando em [http://localhost:3000](http://localhost:3000).
 
 ### 🛠️ Construído Com
 
